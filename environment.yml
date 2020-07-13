@@ -71,6 +71,7 @@ dependencies:
   - ipykernel=5.3.2=py38h23f93f0_0
   - ipython=7.16.1=py38h23f93f0_0
   - ipython_genutils=0.2.0=py_1
+  - iqtree=2.0.3=h7eed37d_0
   - jbig=2.1=h0b31af3_2002
   - jedi=0.17.1=py38h32f6830_0
   - jinja2=2.11.2=pyh9f0ad1d_0
@@ -226,5 +227,5 @@ dependencies:
   - zstd=1.4.4=h4b3e974_3
   - pip:
     - dna-features-viewer==3.0.1
-prefix: /Users/jbloom/opt/miniconda3/envs/CoV_229E_antigenic_drift
+prefix: /Users/jbloom/Documents/software/conda/envs/CoV_229E_antigenic_drift
 
