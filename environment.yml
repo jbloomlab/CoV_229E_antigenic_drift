@@ -17,6 +17,7 @@ dependencies:
   - bcrypt=3.1.7=py38h64e0658_1
   - biopython=1.77=py38h64e0658_0
   - bleach=3.1.5=pyh9f0ad1d_0
+  - bokeh=2.1.1=py38h32f6830_0
   - boto3=1.14.20=pyh9f0ad1d_0
   - botocore=1.17.20=pyh9f0ad1d_0
   - brotlipy=0.7.0=py38h64e0658_1000
@@ -61,6 +62,7 @@ dependencies:
   - graphviz=2.38.0=hc6cc99f_1011
   - harfbuzz=2.4.0=h1050040_5
   - httplib2=0.18.1=pyh9f0ad1d_0
+  - hyphy=2.5.15=hbf6814f_0
   - icu=67.1=h4a8c4bd_0
   - idna=2.10=pyh9f0ad1d_0
   - imagemagick=7.0.8_11=pl526hc610aec_0
@@ -81,9 +83,13 @@ dependencies:
   - jupyterlab=2.1.5=py_0
   - jupyterlab_server=1.2.0=py_0
   - kiwisolver=1.2.0=py38ha0d09dd_0
+  - krb5=1.17.1=h14dd6a4_1
+  - lcms2=2.11=h174193d_0
   - libblas=3.8.0=17_openblas
   - libcblas=3.8.0=17_openblas
+  - libcurl=7.71.1=he6690cf_1
   - libcxx=10.0.0=h1af66ff_2
+  - libedit=3.1.20191231=hed1e85f_1
   - libffi=3.2.1=1
   - libgfortran=4.0.0=2
   - libiconv=1.15=h0b31af3_1006
@@ -92,6 +98,7 @@ dependencies:
   - libpng=1.6.37=hbbe82c9_1
   - libprotobuf=3.12.3=hd174df1_1
   - libsodium=1.0.17=h01d97ff_0
+  - libssh2=1.9.0=h39bdce6_3
   - libtiff=4.1.0=ha78913b_3
   - libuv=1.38.0=h0b31af3_0
   - libwebp=0.5.2=7
@@ -99,10 +106,13 @@ dependencies:
   - libxml2=2.9.10=hc06c4ae_1
   - llvm-openmp=10.0.0=h28b9765_0
   - lz4-c=1.9.2=h4a8c4bd_1
+  - mafft=7.471=h0b31af3_0
+  - markdown=3.2.2=py_0
   - markupsafe=1.1.1=py38h64e0658_1
   - matplotlib-base=3.2.2=py38h1300a51_1
   - mistune=0.8.4=py38h64e0658_1001
   - mizani=0.7.1=py_0
+  - mpi=1.0=openmpi
   - multidict=4.7.5=py38h64e0658_1
   - nbconvert=5.6.1=py38h32f6830_1
   - nbformat=5.0.7=py_0
@@ -112,14 +122,18 @@ dependencies:
   - notebook=6.0.3=py38h32f6830_1
   - numpy=1.18.5=py38h1f821a2_0
   - oauth2client=4.1.3=py_0
+  - olefile=0.46=py_0
   - openjpeg=2.3.1=h254dc36_3
+  - openmpi=4.0.4=hed52333_0
   - openssl=1.1.1g=h0b31af3_0
   - packaging=20.4=pyh9f0ad1d_0
   - palettable=3.3.0=py_0
   - pandas=1.0.5=py38h5fc983b_0
   - pandoc=2.10=0
   - pandocfilters=1.4.2=py_1
+  - panel=0.9.7=py_0
   - pango=1.40.14=h0da9b22_1005
+  - param=1.9.3=py_0
   - paramiko=2.7.1=py38_0
   - parso=0.7.0=pyh9f0ad1d_0
   - patsy=0.5.1=py_0
@@ -127,6 +141,7 @@ dependencies:
   - perl=5.26.2=haec8ef5_1006
   - pexpect=4.8.0=py38h32f6830_1
   - pickleshare=0.7.5=py38h32f6830_1001
+  - pillow=7.2.0=py38h83dc5e5_1
   - pip=20.1.1=py_1
   - pixman=0.38.0=h01d97ff_1003
   - pkg-config=0.29.2=hdc84dc8_1006
@@ -141,6 +156,8 @@ dependencies:
   - pyasn1=0.4.8=py_0
   - pyasn1-modules=0.2.7=py_0
   - pycparser=2.20=pyh9f0ad1d_2
+  - pyct=0.4.6=py_0
+  - pyct-core=0.4.6=py_0
   - pygments=2.6.1=py_0
   - pygraphviz=1.5=py38h64e0658_1002
   - pynacl=1.3.0=py38h0b31af3_1001
@@ -154,6 +171,7 @@ dependencies:
   - python-irodsclient=0.8.2=py_0
   - python_abi=3.8=1_cp38
   - pytz=2020.1=pyh9f0ad1d_0
+  - pyviz_comms=0.7.6=pyh9f0ad1d_0
   - pyyaml=5.3.1=py38h64e0658_0
   - pyzmq=19.0.1=py38h1fcdcd6_0
   - ratelimiter=1.2.0=py38h32f6830_1001
@@ -177,7 +195,9 @@ dependencies:
   - tk=8.6.10=hbbe82c9_0
   - toposort=1.5=py_3
   - tornado=6.0.4=py38h64e0658_1
+  - tqdm=4.47.0=pyh9f0ad1d_0
   - traitlets=4.3.3=py38h32f6830_1
+  - typing_extensions=3.7.4.2=py_0
   - uritemplate=3.0.1=py_0
   - urllib3=1.25.9=py_0
   - wcwidth=0.2.5=pyh9f0ad1d_0
@@ -204,5 +224,7 @@ dependencies:
   - zipp=3.1.0=py_0
   - zlib=1.2.11=h0b31af3_1006
   - zstd=1.4.4=h4b3e974_3
-prefix: /Users/jbloom/Documents/software/conda/envs/CoV_229E_antigenic_drift
+  - pip:
+    - dna-features-viewer==3.0.1
+prefix: /Users/jbloom/opt/miniconda3/envs/CoV_229E_antigenic_drift
 
