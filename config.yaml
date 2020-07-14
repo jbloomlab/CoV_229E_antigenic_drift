@@ -17,5 +17,4 @@ spikes_aligned_codon: results/spikes_aligned_codon.fasta
 spikes_aligned_prot: results/spikes_aligned_prots.fasta
 gard_recomb_json: results/gard_recomb.json
 gard_recomb_best: results/gard_recomb_best.txt
-#interactive_prot_alignment_file = os.path.join(results_dir, 'interactive_spike_aligned_prots.html')
-#iqtree_file = os.path.join(results_dir, 'spikes_iqtree.newick')
+spikes_iqtree: results/spikes_iqtree.treefile

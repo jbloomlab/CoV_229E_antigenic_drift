@@ -11,3 +11,4 @@ results/*
 !results/spikes_metadata.csv
 !results/spikes_aligned_codon.fasta
 !results/spikes_aligned_prots.fasta
+!results/spikes_iqtree.treefile

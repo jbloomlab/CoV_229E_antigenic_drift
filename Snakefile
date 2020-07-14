@@ -38,8 +38,26 @@ rule all:
         config['spikes_unaligned_nt'],
         config['spikes_aligned_codon'],
         config['spikes_aligned_prot'],
-        gard_recomb_json=config['gard_recomb_json'],
-        gard_recomb_best=config['gard_recomb_best'],
+#        gard_recomb_json=config['gard_recomb_json'],
+#        gard_recomb_best=config['gard_recomb_best'],
+        config['spikes_iqtree'],
+
+rule build_iqtree:
+    """Use IQTREE to infer a phylogenetic tree."""
+    input:
+        spikes_aligned_codon=config['spikes_aligned_codon'],
+    output:
+        spikes_iqtree=config['spikes_iqtree']
+    params:
+        prefix=os.path.splitext(config['spikes_iqtree'])[0]
+    shell:
+        """
+        iqtree \
+            -s {input.spikes_aligned_codon} \
+            -st CODON \
+            -m MGK+G+F3X4 \
+            -pre {params.prefix}
+        """
 
 rule gard_recomb_screen:
     """Use GARD to screen for recombination:
