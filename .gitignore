@@ -7,7 +7,6 @@ _*
 results/*
 !results/get_parse_spikes.md
 !results/get_parse_spikes_files
-!results/spikes_unaligned_nt.fasta
 !results/spikes_metadata.csv
 !results/spikes_aligned_codon.fasta
 !results/spikes_aligned_prots.fasta

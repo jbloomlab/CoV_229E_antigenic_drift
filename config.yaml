@@ -11,10 +11,10 @@ prot_length_range: [1170, 1174]  # keep Spikes in this length range, inclusive
 results_dir: results
 genbank_seqs_dir: results/genbank_seqs  # download sequences here
 spikes_unaligned_nt: results/spikes_unaligned_nt.fasta
+spikes_unaligned_prot: results/spikes_unaligned_prot.fasta
 spikes_metadata: results/spikes_metadata.csv
-hyphy_scripts_dir: results/hyphy_scripts  # download HyPhy scripts here
 spikes_aligned_codon: results/spikes_aligned_codon.fasta
 spikes_aligned_prot: results/spikes_aligned_prots.fasta
 gard_recomb_json: results/gard_recomb.json
 gard_recomb_best: results/gard_recomb_best.txt
-spikes_iqtree: results/spikes_iqtree.treefile
+spikes_iqtree: results/iqtree/spikes.treefile

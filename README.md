@@ -46,16 +46,14 @@ Here are the key steps performed by [Snakefile](Snakefile) and the key resulting
 #### Get and parse Spike sequences
 Download the sequences by accession and parse out Spikes from human isolates.
 This is done by the Jupyter notebook [get_parse_spikes.ipynb](get_parse_spikes.ipynb), and the Markdown output of this notebook is in [results/get_parse_spikes.md](results/get_parse_spikes.md).
-This step creates a FASTA file of **unaligned** Spike nucleotide sequences (in [results/spikes_unaligned_nt.fasta](results/spikes_unaligned_nt.fasta)) and a CSV with metadata for these spikes (in [results/spikes_metadata.csv](results/spikes_metadata.csv)).
+This step creates a CSV with metadata for the spikes in [results/spikes_metadata.csv](results/spikes_metadata.csv).
 
 #### Build codon and protein alignments of Spike
-We use [mafft](https://mafft.cbrc.jp/alignment/software/) and the [HyPhy codon-aware alignment scripts](https://github.com/veg/hyphy-analyses/tree/master/codon-msa) to build codon and protein alignments of the Spikes.
+We use [mafft](https://mafft.cbrc.jp/alignment/software/) and [a custom Python script](prot_to_codon_alignment.py) to build protein and codon alilgnments of the Spikes.
 This creates the alignment files [results/spikes_aligned_codon.fasta](results/spikes_aligned_codon.fasta) and [spikes_aligned_prots.fasta](spikes_aligned_prots.fasta).
-This step is done by rules in [Snakefile](Snakefile).
 
 #### Screen sequences for recombination
 
 #### Infer phylogenetic tree
-We infer a phylogenetic tree on the codon alignment using a codon-substitution model with [IQTREE](http://www.iqtree.org/).
-The inferred tree is in [results/spikes_iqtree.treefile](results/spikes_iqtree.treefile).
-This step is done by a rule in [Snakefile](Snakefile).
+We infer a phylogenetic tree from the codon alignment using a codon-substitution model with [IQTREE](http://www.iqtree.org/).
+The inferred tree is in [results/iqtree/spikes.treefile](results/iqtree/spikes.treefile).

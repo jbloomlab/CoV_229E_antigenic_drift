@@ -24,7 +24,6 @@ def run_nb_to_md(nb):
                            '--to', 'markdown',
                            nb,
                            ])
-hyphy_scripts = ['pre-msa.bf', 'post-msa.bf', 'lib/igscueal.bf']
 
 # Rules -----------------------------------------------------------------------
 
@@ -36,8 +35,9 @@ rule all:
         config['spikes_metadata'],
         os.path.join(config['results_dir'], 'get_parse_spikes.md'),
         config['spikes_unaligned_nt'],
-        config['spikes_aligned_codon'],
+        config['spikes_unaligned_prot'],
         config['spikes_aligned_prot'],
+        config['spikes_aligned_codon'],
 #        gard_recomb_json=config['gard_recomb_json'],
 #        gard_recomb_best=config['gard_recomb_best'],
         config['spikes_iqtree'],
@@ -79,48 +79,29 @@ rule gard_recomb_screen:
             --output-lf {output.gard_recomb_best}
         """
         
-
 rule build_codon_alignment:
-    """Build codon alignment using `mafft` and `HyPhy` as here:
-       https://github.com/veg/hyphy-analyses/tree/master/codon-msa
-    """
+    """Create codon alignment from protein alignment and nucleotide sequences."""
     input:
-        pre_msa=os.path.join(config['hyphy_scripts_dir'], 'pre-msa.bf'),
-        post_msa=os.path.join(config['hyphy_scripts_dir'], 'post-msa.bf'),
-        libscript=os.path.join(config['hyphy_scripts_dir'], 'lib/igscueal.bf'),
-        spikes_unaligned_nt=config['spikes_unaligned_nt'],
+        aligned_prot=config['spikes_aligned_prot'],
+        nt_seqs=config['spikes_unaligned_nt'],
     output:
-        spikes_aligned_codon=config['spikes_aligned_codon'],
-        spikes_aligned_prot=config['spikes_aligned_prot'],
-        temp_prot=temp(config['spikes_unaligned_nt'] + '_protein.fas'),
-        temp_nt=temp(config['spikes_unaligned_nt'] + '_nuc.fas'),
+        aligned_codon=config['spikes_aligned_codon']
     shell:
         """
-        hyphy {input.pre_msa} --input {input.spikes_unaligned_nt}
-        mafft --auto {output.temp_prot} > {output.spikes_aligned_prot}
-        hyphy {input.post_msa} \
-            --protein-msa {output.spikes_aligned_prot} \
-            --nucleotide-sequences {output.temp_nt} \
-            --output {output.spikes_aligned_codon} \
-            --compress No
+        python prot_to_codon_alignment.py \
+            --prot_aln {input.aligned_prot} \
+            --nt_seqs {input.nt_seqs} \
+            --codon_aln {output.aligned_codon}
         """
 
-rule get_hyphy_codon_align_scripts:
-    """Get scripts used by HyPhy to make codon alignments.
-       https://github.com/veg/hyphy-analyses/tree/master/codon-msa
-    """
+rule align_spike_prots:
+    """Use ``mafft`` to create a protein alignment."""
+    input:
+        unaligned_prot=config['spikes_unaligned_prot'],
     output:
-        [os.path.join(config['hyphy_scripts_dir'], s) for s in
-         ['pre-msa.bf', 'post-msa.bf', 'lib/igscueal.bf']]
-    params:
-        base_url='https://raw.githubusercontent.com/veg/hyphy-analyses/f298f6d8e29de2fd406c48747efe894b55d0c8ce/codon-msa/'
-    run:
-        for s in output:
-            r = requests.get(os.path.join(
-                            params.base_url,
-                            os.path.relpath(s, config['hyphy_scripts_dir'])))
-            with open(s, 'wb') as f:
-                f.write(r.content)
+        aligned_prot=config['spikes_aligned_prot'],
+    shell:
+        "mafft --auto {input.unaligned_prot} > {output.aligned_prot}"
 
 rule get_parse_spikes:
     """Get and parse human Spike sequences from Genbank."""
@@ -129,6 +110,7 @@ rule get_parse_spikes:
         config['addtl_accessions_metadata'],
     output:
         config['spikes_unaligned_nt'],
+        config['spikes_unaligned_prot'],
         config['spikes_metadata'],
         os.path.join(config['results_dir'], 'get_parse_spikes.md'),
     run:

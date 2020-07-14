@@ -8,7 +8,6 @@ Import modules and read configuration file:
 ```python
 import os
 import re
-import requests
 
 import Bio.Entrez
 import Bio.SeqIO
@@ -171,19 +170,27 @@ _ = p.draw()
 ![png](get_parse_spikes_files/get_parse_spikes_8_0.png)
 
 
-Now get a data frame that is just Spike, filtering just to those of valid lengths, and checking for problematic features like premature stop codons or ambiguous nucleotides:
+Now get a data frame that is just Spike, getting protein and nucleotide sequences without any terminal stop codons, 
+filtering just to those of valid lengths, and checking for problematic features like premature stop codons or ambiguous nucleotides:
 
 
 ```python
 spike_df = (
     cds_df
     .query('is_spike == True')
-    .assign(protein=lambda x: x['sequence'].map(lambda s: s[: (len(s) // 3) * 3].translate()).map(str),
+    .assign(seq_multiple_3=lambda x: x['sequence'].map(lambda s: s[: (len(s) // 3) * 3]),
+            prot_with_stop=lambda x: x['seq_multiple_3'].map(lambda x: x.translate()).map(str),
+            has_terminal_stop=lambda x: x['prot_with_stop'].str[-1] == '*',
+            protein=lambda x: x.apply(lambda r: r['prot_with_stop'][: len(r['prot_with_stop']) -
+                                                                       int(r['has_terminal_stop'])],
+                                      axis=1),
+            sequence=lambda x: x.apply(lambda r: r['seq_multiple_3'][: len(r['seq_multiple_3']) -
+                                                                        3 * int(r['has_terminal_stop'])],
+                                       axis=1).map(str),
             protein_length=lambda x: x['protein'].map(len),
             valid_length=lambda x: x['protein_length'].map(lambda n: config['prot_length_range'][0] <= n
                                                                      <= config['prot_length_range'][1]),
-            premature_stop=lambda x: x['protein'].str[: -1].str.contains('*', regex=False),
-            sequence=lambda x: x['sequence'].map(str),
+            premature_stop=lambda x: x['protein'].str.contains('*', regex=False),
             ambiguous_nts=lambda x: x['sequence'].str.contains('[^ACGT]'),
             country=lambda x: x['Geo_Location'].str.split(':').map(lambda y: y[0]),
             collection_date=lambda x: pd.to_datetime(x['Collection_Date']),
@@ -229,18 +236,20 @@ def get_strain_name(genbank_title):
     return m.group(1)
 
 # add nice names and sort by date, and get columns of interest
-cols_of_interest.insert(0, 'strain_name')
-cols_of_interest.append('year')
+cols_of_interest = ['name', 'date', 'year'] + cols_of_interest
 spike_df = (
     spike_df
-    .assign(strain_name=lambda x: x['GenBank_Title'].map(get_strain_name),
+    .assign(name=lambda x: x['GenBank_Title'].map(get_strain_name),
             year=lambda x: x['collection_date'].dt.year,
+            # decimal year as here: https://stackoverflow.com/a/49021293
+            date=lambda x: x['collection_date'].dt.year +
+                           (x['collection_date'].dt.dayofyear - 1) / 365,
             )
     .sort_values('collection_date')
     .reset_index()
     [cols_of_interest]
     )
-assert len(spike_df) == spike_df['strain_name'].nunique()
+assert len(spike_df) == spike_df['name'].nunique()
 
 print(f"\nOverall, retained {len(spike_df)} Spikes.")
 ```
@@ -422,22 +431,29 @@ _ = p.draw()
 
 
 ## Write Spike sequences and metadata to files
-Write the Spike sequences to a FASTA file with the strain names as headers, and write the metadata for each strain to a CSV file:
+Write the **unaligned** Spike nucleotide and protein sequences to a FASTA file with the strain names as headers, and write the metadata for each strain to a CSV file:
 
 
 ```python
-print(f"Writing the Spike nucleotide sequences to {config['spikes_unaligned_nt']} and the "
-      f"metadata to {config['spikes_metadata']}")
+print(f"Writing Spike nucleotide sequences to {config['spikes_unaligned_nt']}, protein "
+      f"sequences to {config['spikes_unaligned_prot']} and metadata to {config['spikes_metadata']}")
 
 (spike_df
  .drop(columns=['sequence', 'protein'])
  .to_csv(config['spikes_metadata'], index=False)
  )
 
-with open(config['spikes_unaligned_nt'], 'w') as f:
-    for row in spike_df.itertuples():
-        f.write(f">{row.strain_name}\n{row.sequence}\n")
+for fname, attr in [(config['spikes_unaligned_nt'], 'sequence'),
+                    (config['spikes_unaligned_prot'], 'protein')]:
+    with open(fname, 'w') as f:
+        for row in spike_df.itertuples():
+            f.write(f">{row.name}\n{getattr(row, attr)}\n")
 ```
 
-    Writing the Spike nucleotide sequences to results/spikes_unaligned_nt.fasta and the metadata to results/spikes_metadata.csv
+    Writing Spike nucleotide sequences to results/spikes_unaligned_nt.fasta, protein sequences to results/spikes_unaligned_prot.fasta and metadata to results/spikes_metadata.csv
 
+
+
+```python
+
+```
