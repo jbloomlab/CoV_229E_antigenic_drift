@@ -38,6 +38,29 @@ rule all:
         config['spikes_unaligned_nt'],
         config['spikes_aligned_codon'],
         config['spikes_aligned_prot'],
+        gard_recomb_json=config['gard_recomb_json'],
+        gard_recomb_best=config['gard_recomb_best'],
+
+rule gard_recomb_screen:
+    """Use GARD to screen for recombination:
+       https://academic.oup.com/bioinformatics/article/22/24/3096/208339
+       https://link.springer.com/protocol/10.1007/978-1-4939-9074-0_14
+    """
+    input:
+        spikes_aligned_codon=config['spikes_aligned_codon'],
+    output:
+        gard_recomb_json=config['gard_recomb_json'],
+        gard_recomb_best=config['gard_recomb_best'],
+    shell:
+        """
+        hyphy gard \
+            --rv GDD \
+            --rate-classes 3 \
+            --alignment {input.spikes_aligned_codon} \
+            --output {output.gard_recomb_json} \
+            --output-lf {output.gard_recomb_best}
+        """
+        
 
 rule build_codon_alignment:
     """Build codon alignment using `mafft` and `HyPhy` as here:
