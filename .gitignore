@@ -4,4 +4,8 @@
 _*
 *.log
 
-results
+results/*
+!results/get_parse_spikes.md
+!results/get_parse_spikes_files
+!results/spikes_unaligned_nt.fasta
+!results/spikes_metadata.csv
