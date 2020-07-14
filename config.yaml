@@ -12,8 +12,8 @@ results_dir: results
 genbank_seqs_dir: results/genbank_seqs  # download sequences here
 spikes_unaligned_nt: results/spikes_unaligned_nt.fasta
 spikes_metadata: results/spikes_metadata.csv
-#hyphy_scripts_dir: results/hyphy_scripts  # download HyPhy scripts here
-#spikes_aligned_codon_file = os.path.join(results_dir, 'spikes_aligned_codon.fasta')
-#spikes_aligned_prot_file = os.path.join(results_dir, 'spikes_aligned_prots.fasta')
+hyphy_scripts_dir: results/hyphy_scripts  # download HyPhy scripts here
+spikes_aligned_codon: results/spikes_aligned_codon.fasta
+spikes_aligned_prot: results/spikes_aligned_prots.fasta
 #interactive_prot_alignment_file = os.path.join(results_dir, 'interactive_spike_aligned_prots.html')
 #iqtree_file = os.path.join(results_dir, 'spikes_iqtree.newick')
