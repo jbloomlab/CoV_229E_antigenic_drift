@@ -46,4 +46,4 @@ Here are the key steps performed by [Snakefile](Snakefile) and the key resulting
 #### Get and parse spikes
 Download the sequences by accession and parse out Spikes from human isolates.
 This is done by the Jupyter notebook [get_parse_spikes.ipynb](get_parse_spikes.ipynb), and the Markdown output if this notebook is in [results/get_parse_spikes.md](results/get_parse_spikes.md).
-This step creates a FASTA file of **unaligned** Spike nucleotide sequences (in [results/spikes_unaligned_nt.fasta](results/spikes_unaligned_nt.fasta)) and a CSV with metadata for these spikes (in [results/get_parse_spikes.md](results/get_parse_spikes.md)).
+This step creates a FASTA file of **unaligned** Spike nucleotide sequences (in [results/spikes_unaligned_nt.fasta](results/spikes_unaligned_nt.fasta)) and a CSV with metadata for these spikes (in [results/spikes_metadata.csv](results/spikes_metadata.csv)).
