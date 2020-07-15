@@ -47,8 +47,19 @@ rule all:
         config['tree_legend'],
         config['divergencetree_image'],
         config['timetree_image'],
+        os.path.join(config['pdb_dir'], f"{config['pdb_id']}.pdb"),
 #        gard_recomb_json=config['gard_recomb_json'],
 #        gard_recomb_best=config['gard_recomb_best'],
+
+rule get_pdb:
+    output:
+        pdbfile=os.path.join(config['pdb_dir'], "{pdb_id}.pdb")
+    run:
+        pdb_id = os.path.splitext(os.path.basename(output.pdbfile))[0]
+        url = f"https://files.rcsb.org/download/{pdb_id}.pdb"
+        r = requests.get(url)
+        with open(output.pdbfile, 'wb') as f:
+            f.write(r.content)
 
 rule draw_tree:
     """Draw the phylogenetic trees."""

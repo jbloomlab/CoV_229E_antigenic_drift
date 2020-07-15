@@ -9,6 +9,9 @@ email: jbloom@fredhutch.org  # needed to download from Genbank
 prot_length_range: [1170, 1174]  # keep Spikes in this length range, inclusive
 remove_redundant_prot: true  # only keep one representative of redundant proteins?
 
+# PDB identifier for structure
+pdb_id: 6u7h
+
 # name of created (results) files / directories
 results_dir: results
 genbank_seqs_dir: results/genbank_seqs  # download sequences here
@@ -26,3 +29,4 @@ tree_dir: results/tree
 tree_legend: results/tree/legend.pdf
 divergencetree_image: results/tree/divergence_tree.pdf
 timetree_image: results/tree/timetree.pdf
+pdb_dir: results/pdbs
