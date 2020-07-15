@@ -20,6 +20,9 @@ Some accessions are missing information we need, such as about host species and 
 The file [data/extra_229E_accessions_metadata.yaml](data/extra_229E_accessions_metadata.yaml) has this missing data manually entered as parsed from publications.
 The format of this file should be self-explanatory, and describes the sources of the manually parsed data.
 
+In addition, we want to specify certain accessions to ensure they are included, excluded, or specially annotated.
+The file [data/accessions_to_include_exclude_annotate.yaml](data/accessions_to_include_exclude_annotate.yaml) specifies this information; the file should be self-explanatory.
+
 ### Steps run automatically by Snakemake pipeline
 The remaining steps are run automatically using [snakemake](https://snakemake.readthedocs.io/) to run [Snakefile](Snakefile), which reads its configuration from [config.yaml](config.yaml).
 The results are placed in [./results/](results).

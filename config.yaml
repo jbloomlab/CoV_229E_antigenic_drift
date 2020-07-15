@@ -1,11 +1,13 @@
 # input data
 accessions: data/NCBI_Virus_229E_accessions.csv
 addtl_accessions_metadata: data/extra_229E_accessions_metadata.yaml
+accessions_special: data/accessions_to_include_exclude_annotate.yaml
 
 # options for analysis
 redownload_genbank: false  # re-download Genbank seqs even if exist
 email: jbloom@fredhutch.org  # needed to download from Genbank
 prot_length_range: [1170, 1174]  # keep Spikes in this length range, inclusive
+remove_redundant_prot: true  # only keep one representative of redundant proteins?
 
 # name of created (results) files / directories
 results_dir: results
