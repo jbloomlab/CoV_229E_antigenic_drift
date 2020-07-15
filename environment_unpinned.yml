@@ -20,3 +20,4 @@ dependencies:
   - pyyaml
   - pip:
     - dna-features-viewer
+    - pdb_prot_align

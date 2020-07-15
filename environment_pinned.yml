@@ -246,6 +246,8 @@ dependencies:
   - zstd=1.4.4=h6597ccf_3
   - pip:
     - dna-features-viewer==3.0.1
+    - natsort==7.0.1
+    - pdb-prot-align==0.4.0
     - pyqt5-sip==4.19.18
     - pyqtchart==5.12
     - pyqtwebengine==5.12.1
