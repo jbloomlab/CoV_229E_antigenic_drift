@@ -24,3 +24,5 @@ timetree: results/timetree/timetree.newick
 root_to_tip: results/timetree/root_to_tip_regression.pdf
 tree_dir: results/tree
 tree_legend: results/tree/legend.pdf
+divergencetree_image: results/tree/divergence_tree.pdf
+timetree_image: results/tree/timetree.pdf
