@@ -34,7 +34,7 @@ If you are using a Mac OS X, you can probably install the full version-pinned en
 
     conda env create -f environment_pinned.yml
 
-If this fails (which is especially likely if you are using a different operating system), then install the version-unpinned environment in [environment_unpinned.yml](environment_unpinned.yml), which may give you slightly different program versions (which in principle could lead to slightly different results).
+If this fails (which is especially likely if you are using a different operating system), then install the less-version-unpinned environment in [environment_unpinned.yml](environment_unpinned.yml), which may give you slightly different program versions (which in principle could lead to slightly different results).
 
 Then activate the conda environment with:
 

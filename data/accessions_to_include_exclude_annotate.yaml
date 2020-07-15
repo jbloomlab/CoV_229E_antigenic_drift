@@ -1,6 +1,7 @@
 # exclude these accessions
 exclude:
   - JX503061  # outlier on date-to-tip regression
+  - KY674919  # outlier on date-to-tip regression
 
 # include these accessions when collapsing identical sequences
 include:

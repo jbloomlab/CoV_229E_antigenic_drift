@@ -73,7 +73,8 @@ rule timetree:
             --aln {input.aln} \
             --dates {input.dates} \
             --tree {input.tree} \
-            --outdir {params.outdir}
+            --outdir {params.outdir} \
+            --verbose 1
         """
 
 rule build_iqtree:
@@ -142,6 +143,7 @@ rule get_parse_spikes:
     input:
         config['accessions'],
         config['addtl_accessions_metadata'],
+        config['accessions_special'],
     output:
         config['spikes_unaligned_nt'],
         config['spikes_unaligned_prot'],
