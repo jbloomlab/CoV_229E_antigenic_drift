@@ -62,3 +62,10 @@ We infer a phylogenetic tree from the codon alignment using a codon-substitution
 We then use [treetime](https://treetime.readthedocs.io/) to root the resulting tree, and also create a time-scaled tree in which the branch lengths are adjusted to be in units of time.
 The time-scaling assumes that branch lengths are proportional to time, so you should check this assumption by looking at the root-to-tip regression in [results/timetree/root_to_tip_regression.pdf](results/timetree/root_to_tip_regression.pdf).
 The tree with branch lengths still in units of codon substitutions per site is in [results/timetree/divergence_tree.newick](results/timetree/divergence_tree.newick), and the tree with branch lengths scaled by time is in [results/timetree/timetree.newick](results/timetree/timetree.newick).
+
+#### Draw phylogenetic trees
+We use [ete3](http://etetoolkit.org/) to make nice drawings of the phylogenetic tree (both the divergence and time tree).
+This is done by the Jupyter notebook [draw_trees.ipynb](draw_trees.ipynb), and the Markdown output of this notebook is in [results/draw_trees.md](results/draw_trees.md).
+The time-scaled tree drawing in [results/tree/timetree.pdf](results/tree/timetree.pdf) and the divergence-scaled tree drawing is in [results/tree/divergence_tree.pdf](results/tree/divergence_tree.pdf).
+A legend that maps the tip coloring to country of isolation is in [results/tree/legend.pdf](results/tree/legend.pdf).
+

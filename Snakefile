@@ -43,8 +43,27 @@ rule all:
         config['divergencetree'],
         config['timetree'],
         config['root_to_tip'],
+        os.path.join(config['results_dir'], 'draw_trees.md'),
+        config['tree_legend'],
+        config['divergencetree_image'],
+        config['timetree_image'],
 #        gard_recomb_json=config['gard_recomb_json'],
 #        gard_recomb_best=config['gard_recomb_best'],
+
+rule draw_tree:
+    """Draw the phylogenetic trees."""
+    input:
+        config['accessions_special'],
+        config['spikes_metadata'],
+        config['divergencetree'],
+        config['timetree'],
+    output:
+        config['tree_legend'],
+        config['divergencetree_image'],
+        config['timetree_image'],
+        os.path.join(config['results_dir'], 'draw_trees.md'),
+    run:
+        run_nb_to_md('draw_trees.ipynb')
 
 rule nexus_to_newick:
     """Convert tree from Nexus to Newick format."""
