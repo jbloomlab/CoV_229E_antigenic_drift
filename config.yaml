@@ -22,3 +22,5 @@ gard_recomb_best: results/gard_recomb_best.txt
 divergencetree: results/timetree/divergence_tree.newick
 timetree: results/timetree/timetree.newick
 root_to_tip: results/timetree/root_to_tip_regression.pdf
+tree_dir: results/tree
+tree_legend: results/tree/legend.pdf

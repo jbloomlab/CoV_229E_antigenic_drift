@@ -4,5 +4,20 @@ exclude:
   - KY674919  # outlier on date-to-tip regression
 
 # include these accessions when collapsing identical sequences
+# (they are ones used in experiments)
 include:
-  - KY369909  # strain used in initial experiments
+  - DQ243965
+  - KF514429
+  - KF514431
+  - DQ243979
+  - KM055535
+  - KY369909  
+
+# annotate these on tree (they are ones used in experiments)
+annotate:
+  - DQ243965
+  - KF514429
+  - KF514431
+  - DQ243979
+  - KM055535
+  - KY369909  

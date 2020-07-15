@@ -223,7 +223,7 @@ plt.close(p)
 spike_df = spike_df.query('valid_length')
 
 # columns we keep to print
-cols_of_interest = ['Accession', 'Authors', 'Geo_Location', 'country', 'Isolation_Source',
+cols_of_interest = ['Accession', 'Authors', 'Geo_Location', 'country',
                     'collection_date', 'GenBank_Title', 'sequence', 'protein']
 
 for filter_criteria in ['premature_stop', 'ambiguous_nts', 'no_collection_date']:
@@ -302,7 +302,6 @@ print(f"\nOverall, retained {len(spike_df)} Spikes.")
       <th>Authors</th>
       <th>Geo_Location</th>
       <th>country</th>
-      <th>Isolation_Source</th>
       <th>collection_date</th>
       <th>GenBank_Title</th>
       <th>sequence</th>
@@ -316,7 +315,6 @@ print(f"\nOverall, retained {len(spike_df)} Spikes.")
       <td>Farsani,S.M., Dijkman,R., Jebbink,M.F., Goosse...</td>
       <td>Netherlands</td>
       <td>Netherlands</td>
-      <td>oronasopharynx</td>
       <td>2010-01-01</td>
       <td>Human coronavirus 229E isolate 0349, complete ...</td>
       <td>ATGTTTGTTTTACTTGTTGCATATGCCTTGTTGCATATTGCTGGTT...</td>
@@ -328,7 +326,6 @@ print(f"\nOverall, retained {len(spike_df)} Spikes.")
       <td>Dinwiddie,D.L., Dehority,W.N., Schwalm,K.C., K...</td>
       <td>USA: Little Rock, Arkansas</td>
       <td>USA</td>
-      <td>oronasopharynx</td>
       <td>2017-02-27</td>
       <td>Human coronavirus 229E isolate HCoV-229E/USA/A...</td>
       <td>ATGTTTGTTTTACTTGTTGCATATGCCTTGTTGCATATTGCTGGTT...</td>
@@ -367,7 +364,6 @@ print(f"\nOverall, retained {len(spike_df)} Spikes.")
       <th>Authors</th>
       <th>Geo_Location</th>
       <th>country</th>
-      <th>Isolation_Source</th>
       <th>collection_date</th>
       <th>GenBank_Title</th>
       <th>sequence</th>
@@ -381,7 +377,6 @@ print(f"\nOverall, retained {len(spike_df)} Spikes.")
       <td>Lundin,A., Dijkman,R., Bergstrom,T., Kann,N., ...</td>
       <td>Sweden</td>
       <td>Sweden</td>
-      <td>NaN</td>
       <td>NaT</td>
       <td>Human coronavirus 229E clone p0, partial genome</td>
       <td>ATGTTTGTTTTGCTTGTTGCATATGCCTTGTTGCATATTGCTGGTT...</td>
@@ -393,7 +388,6 @@ print(f"\nOverall, retained {len(spike_df)} Spikes.")
       <td>Lundin,A., Dijkman,R., Bergstrom,T., Kann,N., ...</td>
       <td>Sweden</td>
       <td>Sweden</td>
-      <td>NaN</td>
       <td>NaT</td>
       <td>Human coronavirus 229E clone mock-p11, partial...</td>
       <td>ATGTTTGTTTTGCTTGTTGCATATGCCTTGTTGCATATTGCTGGTT...</td>
@@ -405,7 +399,6 @@ print(f"\nOverall, retained {len(spike_df)} Spikes.")
       <td>Lundin,A., Dijkman,R., Bergstrom,T., Kann,N., ...</td>
       <td>Sweden</td>
       <td>Sweden</td>
-      <td>NaN</td>
       <td>NaT</td>
       <td>Human coronavirus 229E clone K22-p11, partial ...</td>
       <td>ATGTTTGTTTTGCTTGTTGCATATGCCTTGTTGCATATTGCTGGTT...</td>
@@ -469,6 +462,7 @@ if config['remove_redundant_prot']:
         .first()
         .reset_index()
         .sort_values('date')
+        .drop(columns='include')
         )
     print(f"\nRetained {len(unique_spike_df)} Spikes with unique protein sequences.")
 
@@ -480,6 +474,11 @@ else:
     
     Reading accessions for inclusion from data/accessions_to_include_exclude_annotate.yaml
     The following accessions are specified for inclusion:
+    	DQ243965
+    	KF514429
+    	KF514431
+    	DQ243979
+    	KM055535
     	KY369909
     
     Retained 57 Spikes with unique protein sequences.
