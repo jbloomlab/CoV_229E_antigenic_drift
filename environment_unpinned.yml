@@ -18,3 +18,5 @@ dependencies:
   - treetime
   - snakemake
   - pyyaml
+  - pip:
+    - dna-features-viewer
