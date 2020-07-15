@@ -2,9 +2,9 @@
 
 Study by Laurel Kelnhofer-Millevolte, Rachel Eguia, Katharine Crawford, and Jesse Bloom
 
-## Steps in analysis
+## Phylogenetic analysis
 
-Most of the analysis is run automatically via [snakemake](https://snakemake.readthedocs.io/), but there is an initial manual step to get Genbank accessions and metadata.
+Most of the phylogenetic analysis is run automatically via [snakemake](https://snakemake.readthedocs.io/), but there is an initial manual step to get Genbank accessions and metadata.
 
 ### Manual step: get Genbank accessions and extra metadata
 For the analysis, we need Genbank accessions and relevant meta data.
@@ -50,10 +50,12 @@ This step creates a CSV with metadata for the spikes in [results/spikes_metadata
 
 #### Build codon and protein alignments of Spike
 We use [mafft](https://mafft.cbrc.jp/alignment/software/) and [a custom Python script](prot_to_codon_alignment.py) to build protein and codon alilgnments of the Spikes.
-This creates the alignment files [results/spikes_aligned_codon.fasta](results/spikes_aligned_codon.fasta) and [spikes_aligned_prots.fasta](spikes_aligned_prots.fasta).
+This creates the alignment files [results/spikes_aligned_codon.fasta](results/spikes_aligned_codon.fasta) and [results/spikes_aligned_prots.fasta](results/spikes_aligned_prots.fasta).
 
 #### Screen sequences for recombination
 
-#### Infer phylogenetic tree
+#### Infer phylogenetic tree and root and time-scale it.
 We infer a phylogenetic tree from the codon alignment using a codon-substitution model with [IQTREE](http://www.iqtree.org/).
-The inferred tree is in [results/iqtree/spikes.treefile](results/iqtree/spikes.treefile).
+We then use [treetime](https://treetime.readthedocs.io/) to root the resulting tree, and also create a time-scaled tree in which the branch lengths are adjusted to be in units of time.
+The time-scaling assumes that branch lengths are proportional to time, so you should check this assumption by looking at the root-to-tip regression in [results/timetree/root_to_tip_regression.pdf](results/timetree/root_to_tip_regression.pdf).
+The tree with branch lengths still in units of codon substitutions per site is in [results/timetree/divergence_tree.newick](results/timetree/divergence_tree.newick), and the tree with branch lengths scaled by time is in [results/timetree/timetree.newick](results/timetree/timetree.newick).

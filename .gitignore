@@ -10,4 +10,8 @@ results/*
 !results/spikes_metadata.csv
 !results/spikes_aligned_codon.fasta
 !results/spikes_aligned_prots.fasta
-!results/spikes_iqtree.treefile
+!results/timetree/
+results/timetree/*
+!results/timetree/root_to_tip_regression.pdf
+!results/timetree/divergence_tree.newick
+!results/timetree/timetree.newick

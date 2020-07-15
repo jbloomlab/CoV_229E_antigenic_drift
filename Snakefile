@@ -5,6 +5,8 @@ import os
 import requests
 import subprocess
 
+import Bio.Phylo
+
 # Configuration ---------------------------------------------------------------
 configfile: 'config.yaml'
 
@@ -38,18 +40,50 @@ rule all:
         config['spikes_unaligned_prot'],
         config['spikes_aligned_prot'],
         config['spikes_aligned_codon'],
+        config['divergencetree'],
+        config['timetree'],
+        config['root_to_tip'],
 #        gard_recomb_json=config['gard_recomb_json'],
 #        gard_recomb_best=config['gard_recomb_best'],
-        config['spikes_iqtree'],
+
+rule nexus_to_newick:
+    """Convert tree from Nexus to Newick format."""
+    input:
+        nexus="{treename}.nexus"
+    output:
+        newick="{treename}.newick"
+    run:
+        Bio.Phylo.convert(input.nexus, 'nexus', output.newick, 'newick')
+
+rule timetree:
+    """Run ``treetime`` to root and make time-scaled tree."""
+    input:
+        aln=config['spikes_aligned_codon'],
+        dates=config['spikes_metadata'],
+        tree='results/iqtree/spikes.treefile',
+    output:
+        os.path.splitext(config['divergencetree'])[0] + '.nexus',
+        os.path.splitext(config['timetree'])[0] + '.nexus',
+        config['root_to_tip'],
+    params:
+        outdir=os.path.dirname(config['timetree'])
+    shell:
+        """
+        treetime \
+            --aln {input.aln} \
+            --dates {input.dates} \
+            --tree {input.tree} \
+            --outdir {params.outdir}
+        """
 
 rule build_iqtree:
     """Use IQTREE to infer a phylogenetic tree."""
     input:
         spikes_aligned_codon=config['spikes_aligned_codon'],
     output:
-        spikes_iqtree=config['spikes_iqtree']
+        spikes_iqtree='results/iqtree/spikes.treefile',
     params:
-        prefix=os.path.splitext(config['spikes_iqtree'])[0]
+        prefix='results/iqtree/spikes',
     shell:
         """
         iqtree \
