@@ -38,3 +38,6 @@ variation_analysis_dir: results/variation_analysis
 site_variation: results/variation_analysis/site_variability.csv
 dms_view_metadata: results/variation_analysis/dms_view_metadata.md
 variation_domain_schematic: results/variation_analysis/domain_schematic.pdf
+seqs_for_expts_dir: results/seqs_for_expts
+seqs_for_expts_diffs: results/seqs_for_expts/n_aa_diffs.pdf
+prots_for_expts: results/seqs_for_expts/prots.fasta

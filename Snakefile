@@ -52,8 +52,26 @@ rule all:
         config['dms_view_metadata'],
         config['variation_domain_schematic'],
         os.path.join(config['results_dir'], 'analyze_variation.md'),
+        config['seqs_for_expts_diffs'],
+        config['prots_for_expts'],
+        directory(config['seqs_for_expts_dir']),
+        os.path.join(config['results_dir'], 'seqs_for_expts.md'),
 #        gard_recomb_json=config['gard_recomb_json'],
 #        gard_recomb_best=config['gard_recomb_best'],
+
+rule seqs_for_expts:
+    input:
+        config['spikes_metadata'],
+        config['accessions_special'],
+        config['spikes_unaligned_prot'],
+        config['domain_annotated_spike'],
+    output:
+        config['seqs_for_expts_diffs'],
+        config['prots_for_expts'],
+        directory(config['seqs_for_expts_dir']),
+        os.path.join(config['results_dir'], 'seqs_for_expts.md'),
+    run:
+        run_nb_to_md('seqs_for_expts.ipynb')
 
 rule variability_analysis:
     input:

@@ -82,3 +82,8 @@ The output is the schematic [results/variation_analysis/domain_schematic.pdf](re
 
 In addition, the created file [results/variation_analysis/site_variability.csv](results/variation_analysis/site_variability.csv) gives the variability at each site.
 This file along with the PDB at [results/pdbs/6u7h.pdb](results/pdbs/6u7h.pdb) and the metadata file at [results/variation_analysis/dms_view_metadata.md](results/variation_analysis/dms_view_metadata.md) can be used to visualize the variability on the protein structure.
+
+### Design Spikes for experiments
+We design the sequences of the Spikes that will be used for the experiments (they have a C-terminal tail deletion to improve lentiviral pseudotyping).
+This design is done by the Juyter notebook [seqs_for_expts.ipynb](seqs_for_expts.ipynb), and the Markdown output of this notebook is in [results/seqs_for_expts.md](results/seqs_for_expts.md).
+The amino-acid Levenshtein distance (essentially number of differences including gaps) among these sequences is plotted in [results/seqs_for_expts/n_aa_diffs.pdf](results/seqs_for_expts/n_aa_diffs.pdf)
