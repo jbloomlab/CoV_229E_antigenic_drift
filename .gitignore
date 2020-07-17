@@ -26,3 +26,11 @@ results/tree/*
 !results/tree/timetree.pdf
 !results/tree/divergence_tree.pdf
 !results/tree/legend.pdf
+
+!results/analyze_variation.md
+!results/analyze_variation_files
+!results/variation_analysis
+results/variation_analysis/*
+!results/variation_analysis/site_variability.csv
+!results/variation_analysis/dms_view_metadata.md
+!results/variation_analysis/domain_schematic.pdf
