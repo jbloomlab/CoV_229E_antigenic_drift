@@ -79,3 +79,6 @@ A legend that maps the tip coloring to country of isolation is in [results/tree/
 We compute the variability of each site in Spike over the sequence alignment, and plot this on the domain structure (using the residue number and domain definitions defined in [data/AAK32191_hand_annotated.gp](data/AAK32191_hand_annotated.gp)).
 This is done by the Jupyter notebook [analyze_variation.ipynb](analyze_variation.ipynb), and the Markdown output of this notebook is in [results/analyze_variation.md](results/analyze_variation.md).
 The output is the schematic [results/variation_analysis/domain_schematic.pdf](results/variation_analysis/domain_schematic.pdf).
+
+In addition, the created file [results/variation_analysis/site_variability.csv](results/variation_analysis/site_variability.csv) gives the variability at each site.
+This file along with the PDB at [results/pdbs/6u7h.pdb](results/pdbs/6u7h.pdb) and the metadata file at [results/variation_analysis/dms_view_metadata.md](results/variation_analysis/dms_view_metadata.md) can be used to visualize the variability on the protein structure.

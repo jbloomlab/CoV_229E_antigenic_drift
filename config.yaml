@@ -32,5 +32,6 @@ divergencetree_image: results/tree/divergence_tree.pdf
 timetree_image: results/tree/timetree.pdf
 pdb_dir: results/pdbs
 variation_analysis_dir: results/variation_analysis
-site_variation: results/variation_analysis/sites.csv
+site_variation: results/variation_analysis/site_variability.csv
+dms_view_metadata: results/variation_analysis/dms_view_metadata.md
 variation_domain_schematic: results/variation_analysis/domain_schematic.pdf

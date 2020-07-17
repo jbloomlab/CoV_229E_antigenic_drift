@@ -48,9 +48,26 @@ rule all:
         config['divergencetree_image'],
         config['timetree_image'],
         os.path.join(config['pdb_dir'], f"{config['pdb_id']}.pdb"),
+        config['site_variation'],
+        config['dms_view_metadata'],
+        config['variation_domain_schematic'],
+        os.path.join(config['results_dir'], 'analyze_variation.md'),
 #        gard_recomb_json=config['gard_recomb_json'],
 #        gard_recomb_best=config['gard_recomb_best'],
 
+rule variability_analysis:
+    input:
+        os.path.join(config['pdb_dir'], f"{config['pdb_id']}.pdb"),
+        config['domain_annotated_spike'],
+        config['spikes_unaligned_prot']
+    output:
+        config['site_variation'],
+        config['dms_view_metadata'],
+        config['variation_domain_schematic'],
+        os.path.join(config['results_dir'], 'analyze_variation.md'),
+    run:
+        run_nb_to_md('analyze_variation.ipynb')
+        
 rule get_pdb:
     output:
         pdbfile=os.path.join(config['pdb_dir'], "{pdb_id}.pdb")
