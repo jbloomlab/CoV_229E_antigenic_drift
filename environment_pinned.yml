@@ -17,7 +17,10 @@ dependencies:
   - backcall=0.2.0=pyh9f0ad1d_0
   - bcrypt=3.1.7=py38h1e0a361_1
   - biopython=1.77=py38h1e0a361_0
+  - blast=2.5.0=hc0b0e79_3
   - bleach=3.1.5=pyh9f0ad1d_0
+  - boost=1.73.0=py38hd103949_0
+  - boost-cpp=1.73.0=h6c875cf_0
   - boto3=1.14.20=pyh9f0ad1d_0
   - botocore=1.17.20=pyh9f0ad1d_0
   - brotlipy=0.7.0=py38h1e0a361_1000
@@ -246,10 +249,12 @@ dependencies:
   - zstd=1.4.4=h6597ccf_3
   - pip:
     - dna-features-viewer==3.0.1
+    - editdistance==0.5.3
     - natsort==7.0.1
-    - pdb-prot-align==0.4.0
+    - pdb-prot-align==0.5.0
     - pyqt5-sip==4.19.18
     - pyqtchart==5.12
     - pyqtwebengine==5.12.1
+    - python-levenshtein==0.12.0
 prefix: /fh/fast/bloom_j/software/conda_v2/envs/CoV_229E_antigenic_drift
 
