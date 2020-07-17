@@ -145,10 +145,12 @@ site_variation = (
                   })
  .assign(label_site=lambda x: x['site'],
          condition='229E_alignment',
-         protein_chain=' '.join(config['pdb_chains'])
+         protein_chain=' '.join(config['pdb_chains']),
+         protein_site=lambda x: x['protein_site'].astype('Int64'),
          )
  [['site', 'label_site', 'wildtype', 'mutation', 'condition', 'protein_chain', 'protein_site',
    'site_n_effective_amino_acids', 'site_entropy', 'mut_aa_frequency']]
+ .drop_duplicates()
  )
 
 print('Here are first few lines:')
@@ -192,7 +194,7 @@ with open(config['dms_view_metadata'], 'w') as f:
       <td>-</td>
       <td>229E_alignment</td>
       <td>A B C</td>
-      <td>NaN</td>
+      <td>&lt;NA&gt;</td>
       <td>1.0</td>
       <td>0.0</td>
       <td>0.0</td>
@@ -204,7 +206,7 @@ with open(config['dms_view_metadata'], 'w') as f:
       <td>A</td>
       <td>229E_alignment</td>
       <td>A B C</td>
-      <td>NaN</td>
+      <td>&lt;NA&gt;</td>
       <td>1.0</td>
       <td>0.0</td>
       <td>0.0</td>
@@ -216,7 +218,7 @@ with open(config['dms_view_metadata'], 'w') as f:
       <td>C</td>
       <td>229E_alignment</td>
       <td>A B C</td>
-      <td>NaN</td>
+      <td>&lt;NA&gt;</td>
       <td>1.0</td>
       <td>0.0</td>
       <td>0.0</td>
@@ -228,7 +230,7 @@ with open(config['dms_view_metadata'], 'w') as f:
       <td>D</td>
       <td>229E_alignment</td>
       <td>A B C</td>
-      <td>NaN</td>
+      <td>&lt;NA&gt;</td>
       <td>1.0</td>
       <td>0.0</td>
       <td>0.0</td>
@@ -240,7 +242,7 @@ with open(config['dms_view_metadata'], 'w') as f:
       <td>E</td>
       <td>229E_alignment</td>
       <td>A B C</td>
-      <td>NaN</td>
+      <td>&lt;NA&gt;</td>
       <td>1.0</td>
       <td>0.0</td>
       <td>0.0</td>
