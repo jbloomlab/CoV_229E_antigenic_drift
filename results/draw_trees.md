@@ -122,64 +122,52 @@ names_to_annotate = metadata.query('Accession in @acc_to_annotate')['name'].toli
   </thead>
   <tbody>
     <tr>
-      <td>HCoV-229E-16/6/82</td>
-      <td>1982.454795</td>
-      <td>1982</td>
-      <td>DQ243965</td>
+      <td>HCoV-229E-5/9/84</td>
+      <td>1984.679452</td>
+      <td>1984</td>
+      <td>DQ243972</td>
       <td>Chibo,D., Birch,C., Birch,C.J.</td>
       <td>Australia</td>
       <td>Australia</td>
-      <td>1982-06-16</td>
-      <td>Human coronavirus 229E isolate HCoV-229E-16/6/82 spike glycoprotein (S) gene, complete cds</td>
+      <td>1984-09-05</td>
+      <td>Human coronavirus 229E isolate HCoV-229E-5/9/84 spike glycoprotein (S) gene, complete cds</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>HCoV-229E-17/6/92</td>
+      <td>1992.460274</td>
+      <td>1992</td>
+      <td>DQ243976</td>
+      <td>Chibo,D., Birch,C., Birch,C.J.</td>
+      <td>Australia</td>
+      <td>Australia</td>
+      <td>1992-06-17</td>
+      <td>Human coronavirus 229E isolate HCoV-229E-17/6/92 spike glycoprotein (S) gene, complete cds</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>HCoV-229E-8/8/01</td>
+      <td>2001.600000</td>
+      <td>2001</td>
+      <td>DQ243977</td>
+      <td>Chibo,D., Birch,C., Birch,C.J.</td>
+      <td>Australia</td>
+      <td>Australia</td>
+      <td>2001-08-08</td>
+      <td>Human coronavirus 229E strain HCoV-229E-8/8/01 spike glycoprotein (S) gene, complete cds</td>
       <td>2</td>
     </tr>
     <tr>
-      <td>USA/892-11/1989</td>
-      <td>1989.101370</td>
-      <td>1989</td>
-      <td>KF514429</td>
-      <td>Town,C.D., Halpin,R.A., Ransier,A., Fedorova,N., Tsitrin,T., Stockwell,T., Amedeo,P., Appalla,L., Bishop,B., Edworthy,P., Gupta,N., Hoover,J., Katzel,D., Schobel,S., Shrivastava,S., Thovarai,V., Wang,S., Talbot,H.K., Wentworth,D.E., Williams,J.V.</td>
-      <td>USA: Nashville, TN</td>
-      <td>USA</td>
-      <td>1989-02-07</td>
-      <td>Human coronavirus 229E strain 229E/human/USA/892-11/1989, partial genome</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>USA/953-49/1995</td>
-      <td>1995.221918</td>
-      <td>1995</td>
-      <td>KF514431</td>
-      <td>Town,C.D., Halpin,R.A., Ransier,A., Fedorova,N., Tsitrin,T., Stockwell,T., Amedeo,P., Appalla,L., Bishop,B., Edworthy,P., Gupta,N., Hoover,J., Katzel,D., Schobel,S., Shrivastava,S., Thovarai,V., Wang,S., Talbot,H.K., Wentworth,D.E., Williams,J.V.</td>
-      <td>USA: Nashville, TN</td>
-      <td>USA</td>
-      <td>1995-03-23</td>
-      <td>Human coronavirus 229E strain 229E/human/USA/953-49/1995, partial genome</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>HCoV-229E-21/6/02</td>
-      <td>2002.468493</td>
-      <td>2002</td>
-      <td>DQ243979</td>
-      <td>Chibo,D., Birch,C., Birch,C.J.</td>
-      <td>Australia</td>
-      <td>Australia</td>
-      <td>2002-06-21</td>
-      <td>Human coronavirus 229E strain HCoV-229E-21/6/02 spike glycoprotein (S) gene, complete cds</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>1649A_2009</td>
-      <td>2009.000000</td>
-      <td>2009</td>
-      <td>KM055535</td>
+      <td>693A_2008</td>
+      <td>2008.000000</td>
+      <td>2008</td>
+      <td>KM055556</td>
       <td>Zhang,Y., Ren,L., Wang,J.</td>
       <td>China</td>
       <td>China</td>
-      <td>2009-01-01</td>
-      <td>Human coronavirus 229E isolate 1649A_2009 spike glycoprotein (S) gene, complete cds</td>
-      <td>7</td>
+      <td>2008-01-01</td>
+      <td>Human coronavirus 229E isolate 693A_2008 spike glycoprotein (S) gene, complete cds</td>
+      <td>1</td>
     </tr>
     <tr>
       <td>Seattle/USA/SC677/2016</td>

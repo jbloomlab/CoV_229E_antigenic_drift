@@ -6,18 +6,16 @@ exclude:
 # include these accessions when collapsing identical sequences
 # (they are ones used in experiments)
 include:
-  - DQ243965
-  - KF514429
-  - KF514431
-  - DQ243979
-  - KM055535
+  - DQ243972
+  - DQ243976
+  - DQ243977
+  - KM055556
   - KY369909  
 
 # annotate these on tree (they are ones used in experiments)
 annotate:
-  - DQ243965
-  - KF514429
-  - KF514431
-  - DQ243979
-  - KM055535
+  - DQ243972
+  - DQ243976
+  - DQ243977
+  - KM055556
   - KY369909  

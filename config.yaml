@@ -13,6 +13,9 @@ remove_redundant_prot: true  # only keep one of redundant proteins?
 pdb_id: 6u7h  # PDB identifier for structure
 pdb_chains: [A, B, C]  # chains in PDB that are Spike
 
+# parameters for designing sequences for experiments
+c_term_del_len: 19  # delete this many amino acids from C-terminus
+
 # name of created (results) files / directories
 results_dir: results
 genbank_seqs_dir: results/genbank_seqs  # download sequences here
