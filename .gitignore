@@ -34,3 +34,5 @@ results/variation_analysis/*
 !results/variation_analysis/site_variability.csv
 !results/variation_analysis/dms_view_metadata.md
 !results/variation_analysis/domain_schematic.pdf
+
+!results/pdbs
