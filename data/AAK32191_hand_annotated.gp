@@ -28,7 +28,9 @@ FEATURES             Location/Qualifiers
      S2              575..1113
      NTD             38..267
      RBD             293..435
-     binding_loops   308..325,352..359,404..408
+     binding_loop_1  308..325
+     binding_loop_2  352..359
+     binding_loop_3  404..408
 ORIGIN      
         1 mfvllvayal lhiagcqttn glntsysvcn gcvgysenvf avesggyips dfafnnwfll
        61 tntssvvdgv vrsfqpllln clwsvsglrf ttgfvyfngt grgdckgfss dvlsdviryn

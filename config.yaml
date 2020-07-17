@@ -2,15 +2,16 @@
 accessions: data/NCBI_Virus_229E_accessions.csv
 addtl_accessions_metadata: data/extra_229E_accessions_metadata.yaml
 accessions_special: data/accessions_to_include_exclude_annotate.yaml
+domain_annotated_spike: data/AAK32191_hand_annotated.gp
 
 # options for analysis
 redownload_genbank: false  # re-download Genbank seqs even if exist
 email: jbloom@fredhutch.org  # needed to download from Genbank
 prot_length_range: [1170, 1174]  # keep Spikes in this length range, inclusive
-remove_redundant_prot: true  # only keep one representative of redundant proteins?
+remove_redundant_prot: true  # only keep one of redundant proteins?
 
-# PDB identifier for structure
-pdb_id: 6u7h
+pdb_id: 6u7h  # PDB identifier for structure
+pdb_chains: [A, B, C]  # chains in PDB that are Spike
 
 # name of created (results) files / directories
 results_dir: results
@@ -30,3 +31,6 @@ tree_legend: results/tree/legend.pdf
 divergencetree_image: results/tree/divergence_tree.pdf
 timetree_image: results/tree/timetree.pdf
 pdb_dir: results/pdbs
+variation_analysis_dir: results/variation_analysis
+site_variation: results/variation_analysis/sites.csv
+variation_domain_schematic: results/variation_analysis/domain_schematic.pdf
