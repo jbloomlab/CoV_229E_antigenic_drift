@@ -3,6 +3,7 @@
 *.out
 _*
 *.log
+run.sbatch
 
 results/*
 
@@ -42,3 +43,7 @@ results/seqs_for_expts/*
 !results/seqs_for_expts/n_aa_diffs.pdf
 !results/seqs_for_expts/prots.fasta
 !results/seqs_for_expts/*.gp
+
+!results/gard_recomb.json
+!results/gard_recomb_best.txt
+!results/gard_recomb_best.txt.fit.bf

@@ -56,8 +56,8 @@ rule all:
         config['prots_for_expts'],
         directory(config['seqs_for_expts_dir']),
         os.path.join(config['results_dir'], 'seqs_for_expts.md'),
-#        gard_recomb_json=config['gard_recomb_json'],
-#        gard_recomb_best=config['gard_recomb_best'],
+        gard_recomb_json=config['gard_recomb_json'],
+        gard_recomb_best=config['gard_recomb_best'],
 
 rule seqs_for_expts:
     input:
@@ -172,7 +172,8 @@ rule gard_recomb_screen:
     shell:
         """
         hyphy gard \
-            --rv GDD \
+            -type nucleotide \
+            --rv Gamma \
             --rate-classes 3 \
             --alignment {input.spikes_aligned_codon} \
             --output {output.gard_recomb_json} \
