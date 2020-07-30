@@ -21,6 +21,7 @@ dependencies:
   - r-irkernel
   - r-rjson
   - r-yaml
+  - rpy2
   - treetime
   - snakemake
   - pyyaml
