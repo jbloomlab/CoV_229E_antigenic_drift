@@ -25,7 +25,8 @@ spikes_metadata: results/spikes_metadata.csv
 spikes_aligned_codon: results/spikes_aligned_codon.fasta
 spikes_aligned_prot: results/spikes_aligned_prots.fasta
 gard_recomb_json: results/gard_recomb.json
-gard_recomb_best: results/gard_recomb_best.txt
+gard_analysis_dir: results/gard_analysis
+gard_tanglegram: results/gard_analysis/tanglegram.png
 divergencetree: results/timetree/divergence_tree.newick
 timetree: results/timetree/timetree.newick
 root_to_tip: results/timetree/root_to_tip_regression.pdf

@@ -3,6 +3,7 @@
 *.out
 _*
 *.log
+run.sbatch
 
 results/*
 
@@ -27,6 +28,9 @@ results/tree/*
 !results/tree/divergence_tree.pdf
 !results/tree/legend.pdf
 
+!results/gard_tanglegram.md
+!results/gard_tanglegram_files
+
 !results/analyze_variation.md
 !results/analyze_variation_files
 !results/variation_analysis
@@ -42,3 +46,8 @@ results/seqs_for_expts/*
 !results/seqs_for_expts/n_aa_diffs.pdf
 !results/seqs_for_expts/prots.fasta
 !results/seqs_for_expts/*.gp
+
+!results/gard_recomb.json
+!results/gard_analysis
+results/gard_analysis/*
+!results/gard_analysis/tanglegram.png

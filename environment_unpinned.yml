@@ -4,17 +4,24 @@ channels:
   - bioconda
   - conda-forge
 dependencies:
-  - ete3=3.1.1
-  - hyphy=2.5.15
-  - iqtree=2.0.3
+  - bioconductor-decipher
+  - ete3>=3.1
+  - hyphy>=2.5
+  - iqtree>=2.0.3
   - jupyter_contrib_nbextensions
   - jupyterlab
-  - mafft=7.471
+  - mafft>=7.471
   - nbdime
   - pandas
   - pip
   - plotnine
   - python=3.8
+  - r-ape
+  - r-dendextend=1.13.4
+  - r-irkernel
+  - r-rjson
+  - r-yaml
+  - rpy2
   - treetime
   - snakemake
   - pyyaml

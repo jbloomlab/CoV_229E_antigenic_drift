@@ -62,6 +62,9 @@ We use [mafft](https://mafft.cbrc.jp/alignment/software/) and [a custom Python s
 This creates the alignment files [results/spikes_aligned_codon.fasta](results/spikes_aligned_codon.fasta) and [results/spikes_aligned_prots.fasta](results/spikes_aligned_prots.fasta).
 
 ### Screen sequences for recombination
+We use [GARD](https://academic.oup.com/bioinformatics/article/22/24/3096/208339) to screen the sequences for recombination (see also [here for background on GARD](https://link.springer.com/protocol/10.1007/978-1-4939-9074-0_14)).
+The full results of the GARD analysis are in [results/gard_recomb.json](results/gard_recomb.json), and these results are analyzed and rendered in a tanglegram in [results/gard_tanglegram.md](results/gard_tanglegram.md).
+The final tanglegram is in [results/gard_analysis/tanglegram.png](results/gard_analysis/tanglegram.png).
 
 ### Infer phylogenetic tree and root and time-scale it.
 We infer a phylogenetic tree from the codon alignment using a codon-substitution model with [IQTREE](http://www.iqtree.org/).

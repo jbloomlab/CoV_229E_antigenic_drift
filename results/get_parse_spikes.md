@@ -118,14 +118,33 @@ for i, (acc, fname) in enumerate(to_download.items()):
     
     Reading accessions for exclusion from data/accessions_to_include_exclude_annotate.yaml
     Read 2 accessions to exclude.
+
+
+    /fh/fast/bloom_j/software/conda_v2/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/utils.py:1246: FutureWarning: is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+
+
     
     Retaining just the 327 of 544 accessions that are human.
-    There are 327 accessions in data/NCBI_Virus_229E_accessions.csv, of which 0 are not already downloaded in results/genbank_seqs.
-    Downloading the 0 accessions not already in results/genbank_seqs.
+    There are 327 accessions in data/NCBI_Virus_229E_accessions.csv, of which 327 are not already downloaded in results/genbank_seqs.
+    Downloading the 327 accessions not already in results/genbank_seqs.
+    Progress: accession 1 of 327
+    Progress: accession 26 of 327
+    Progress: accession 51 of 327
+    Progress: accession 76 of 327
+    Progress: accession 101 of 327
+    Progress: accession 126 of 327
+    Progress: accession 151 of 327
+    Progress: accession 176 of 327
+    Progress: accession 201 of 327
+    Progress: accession 226 of 327
+    Progress: accession 251 of 327
+    Progress: accession 276 of 327
+    Progress: accession 301 of 327
+    Progress: accession 326 of 327
 
 
 
-![png](get_parse_spikes_files/get_parse_spikes_6_1.png)
+![png](get_parse_spikes_files/get_parse_spikes_6_3.png)
 
 
 ## Parse Spike coding sequences
@@ -165,8 +184,11 @@ p = (ggplot(cds_df) +
 _ = p.draw()
 ```
 
+    /fh/fast/bloom_j/software/conda_v2/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/utils.py:1246: FutureWarning: is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
 
-![png](get_parse_spikes_files/get_parse_spikes_8_0.png)
+
+
+![png](get_parse_spikes_files/get_parse_spikes_8_1.png)
 
 
 Now get a data frame that is just Spike, getting protein and nucleotide sequences without any terminal stop codons, 
@@ -256,8 +278,11 @@ print(f"\nOverall, retained {len(spike_df)} Spikes.")
     Here is plot of number of Spikes at each protein length; only keeping those with valid length:
 
 
+    /fh/fast/bloom_j/software/conda_v2/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/utils.py:1246: FutureWarning: is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
 
-![png](get_parse_spikes_files/get_parse_spikes_10_1.png)
+
+
+![png](get_parse_spikes_files/get_parse_spikes_10_2.png)
 
 
     

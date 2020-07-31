@@ -54,10 +54,11 @@ rule all:
         os.path.join(config['results_dir'], 'analyze_variation.md'),
         config['seqs_for_expts_diffs'],
         config['prots_for_expts'],
-        directory(config['seqs_for_expts_dir']),
+        config['seqs_for_expts_dir'],
         os.path.join(config['results_dir'], 'seqs_for_expts.md'),
-#        gard_recomb_json=config['gard_recomb_json'],
-#        gard_recomb_best=config['gard_recomb_best'],
+        config['gard_recomb_json'],
+        config['gard_tanglegram'],
+        os.path.join(config['results_dir'], 'gard_tanglegram.md'),
 
 rule seqs_for_expts:
     input:
@@ -159,6 +160,19 @@ rule build_iqtree:
             -pre {params.prefix}
         """
 
+rule gard_tanglegram:
+    """Analyze results of GARD recombination analysis and draw tanglegram."""
+    input:
+        config['gard_recomb_json'],
+        config['spikes_metadata'],
+        config['spikes_aligned_codon'],
+    output:
+        config['gard_tanglegram'],
+        os.path.join(config['results_dir'], 'gard_tanglegram.md'),
+    run:
+        run_nb_to_md('gard_tanglegram.ipynb')
+
+
 rule gard_recomb_screen:
     """Use GARD to screen for recombination:
        https://academic.oup.com/bioinformatics/article/22/24/3096/208339
@@ -168,15 +182,14 @@ rule gard_recomb_screen:
         spikes_aligned_codon=config['spikes_aligned_codon'],
     output:
         gard_recomb_json=config['gard_recomb_json'],
-        gard_recomb_best=config['gard_recomb_best'],
     shell:
         """
         hyphy gard \
-            --rv GDD \
+            --type nucleotide \
+            --rv Gamma \
             --rate-classes 3 \
             --alignment {input.spikes_aligned_codon} \
-            --output {output.gard_recomb_json} \
-            --output-lf {output.gard_recomb_best}
+            --output {output.gard_recomb_json}
         """
         
 rule build_codon_alignment:
