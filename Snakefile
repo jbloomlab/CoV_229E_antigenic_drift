@@ -57,6 +57,8 @@ rule all:
         directory(config['seqs_for_expts_dir']),
         os.path.join(config['results_dir'], 'seqs_for_expts.md'),
         gard_recomb_json=config['gard_recomb_json'],
+        config['gard_tanglegram'],
+        os.path.join(config['results_dir'], 'gard_tanglegram.md'),
 
 rule seqs_for_expts:
     input:
@@ -157,6 +159,19 @@ rule build_iqtree:
             -m MGK+G+F3X4 \
             -pre {params.prefix}
         """
+
+rule gard_tanglegram:
+    """Analyze results of GARD recombination analysis and draw tanglegram."""
+    input:
+        config['gard_recomb_json'],
+        config['spikes_metadata'],
+        config['spikes_aligned_codon'],
+    output:
+        config['gard_tanglegram'],
+        os.path.join(config['results_dir'], 'gard_tanglegram.md'),
+    run:
+        run_nb_to_md('gard_tanglegram.ipynb')
+
 
 rule gard_recomb_screen:
     """Use GARD to screen for recombination:

@@ -45,3 +45,6 @@ results/seqs_for_expts/*
 !results/seqs_for_expts/*.gp
 
 !results/gard_recomb.json
+!results/gard_analysis
+results/gard_analysis/*
+!results/gard_analysis/tanglegram.png
