@@ -28,6 +28,9 @@ results/tree/*
 !results/tree/divergence_tree.pdf
 !results/tree/legend.pdf
 
+!results/gard_tanglegram.md
+!results/gard_tanglegram_files
+
 !results/analyze_variation.md
 !results/analyze_variation_files
 !results/variation_analysis

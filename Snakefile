@@ -54,9 +54,9 @@ rule all:
         os.path.join(config['results_dir'], 'analyze_variation.md'),
         config['seqs_for_expts_diffs'],
         config['prots_for_expts'],
-        directory(config['seqs_for_expts_dir']),
+        config['seqs_for_expts_dir'],
         os.path.join(config['results_dir'], 'seqs_for_expts.md'),
-        gard_recomb_json=config['gard_recomb_json'],
+        config['gard_recomb_json'],
         config['gard_tanglegram'],
         os.path.join(config['results_dir'], 'gard_tanglegram.md'),
 
