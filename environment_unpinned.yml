@@ -28,4 +28,5 @@ dependencies:
   - pip:
     - dna-features-viewer
     - editdistance
+    - neutcurve
     - pdb_prot_align
