@@ -1,0 +1,9 @@
+﻿Date,Plate,Sample,SampleNum,Virus,PlateLayout,StartDil,DilFactor
+10/9/20,Plate 1-V,FH004MM,1,229E-1984,layout1.csv,0.1,3
+10/9/20,Plate 1-V,FH005DJ,2,229E-1984,layout1.csv,0.1,3
+10/9/20,Plate 1-V,FH007TR,3,229E-1984,layout1.csv,0.1,3
+10/9/20,Plate 1-V,FH008WC,4,229E-1984,layout1.csv,0.1,3
+10/9/20,Plate 2-V,FH010WB,1,229E-1984,layout1.csv,0.1,3
+10/9/20,Plate 2-V,FH011KG,2,229E-1984,layout1.csv,0.1,3
+10/9/20,Plate 2-V,Nothing,3,229E-1984,layout1.csv,0.1,3
+10/9/20,Plate 2-V,FR1377,4,229E-1984,layout1.csv,0.1,3

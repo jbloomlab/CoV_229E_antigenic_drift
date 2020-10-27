@@ -1,10 +1,10 @@
 # Antigenic drift of the human seasonal coronavirus 229E
 
-Study by Laurel Kelnhofer-Millevolte, Rachel Eguia, Katharine Crawford, and Jesse Bloom
+Study by Rachel Eguia, Katharine Crawford, Laurel Kelnhofer-Millevolte, and Jesse Bloom
 
 The analysis is divided into some manual steps that provide the input data, followed by an automated computational analysis to prodcue the rest of the results from input data.
 
-## Manual steps
+## Manual steps to generate input data for phylogenetic analyses
 These manual steps are used to generate the input data in the [./data/](data) subdirectory.
 
 ### Genbank accessions and extra metadata
@@ -28,6 +28,9 @@ The file [data/accessions_to_include_exclude_annotate.yaml](data/accessions_to_i
 For domain-level analysis, we use a GenePept (`*.gp`) file that contains the Spike protein that was used in the PDB structure reported by [Li et al (2019)](https://elifesciences.org/articles/51230) (this is PDB [6u7h](https://www.rcsb.org/structure/6U7H)).
 The Genbank protein accession for the Spike used in that study is [AAK32191](https://www.ncbi.nlm.nih.gov/protein/AAK32191).
 This accession was downloaded in GenePept format, and then manually annotated to describe key domains / motifs (using the definitions in [Li et al (2019)](https://elifesciences.org/articles/51230)) to create [data/AAK32191_hand_annotated.gp](data/AAK32191_hand_annotated.gp).
+
+## Manual steps to generate experimental neutralization data
+The experimental data are in [./exptl_data/](expt_data).
 
 ## Steps run automatically by Snakemake pipeline
 The remaining steps are run automatically using [snakemake](https://snakemake.readthedocs.io/) to run [Snakefile](Snakefile), which reads its configuration from [config.yaml](config.yaml).
