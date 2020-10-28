@@ -356,7 +356,7 @@ print(f"Saving to {config['variation_domain_schematic']}")
 plt.savefig(config['variation_domain_schematic'])
 ```
 
-    <ipython-input-10-c2de04da600d>:73: UserWarning: FixedFormatter should only be used together with FixedLocator
+    <ipython-input-1-c2de04da600d>:73: UserWarning: FixedFormatter should only be used together with FixedLocator
       _ = ax_var.set_xticklabels([(int(i + 1)) for i in ax_var.get_xticks()])
 
 
@@ -364,7 +364,9 @@ plt.savefig(config['variation_domain_schematic'])
 
 
 
+    
 ![png](analyze_variation_files/analyze_variation_20_2.png)
+    
 
 
 

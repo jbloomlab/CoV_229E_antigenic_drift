@@ -153,7 +153,7 @@ for i, newick in enumerate(newicks, start=1):
     
     0.00	-TreeAnc: set-up
     
-    0.08	WARNING: Previous versions of TreeTime (<0.7.0) RECONSTRUCTED sequences of
+    0.10	WARNING: Previous versions of TreeTime (<0.7.0) RECONSTRUCTED sequences of
         	tips at positions with AMBIGUOUS bases. This resulted in unexpected
         	behavior is some cases and is no longer done by default. If you want to
         	replace those ambiguous sites with their most likely state, rerun with
@@ -188,8 +188,8 @@ for i, newick in enumerate(newicks, start=1):
     
     Inferred sequence evolution model (saved as results/gard_analysis/partition_1/molecular_clock.txt):
     Root-Tip-Regression:
-     --rate:	1.242e-03
-     --r^2:  	0.95
+     --rate:	1.326e-03
+     --r^2:  	0.96
     
     --- saved tree as 
     	 results/gard_analysis/partition_1/timetree.pdf
@@ -221,7 +221,7 @@ for i, newick in enumerate(newicks, start=1):
     
     0.00	-TreeAnc: set-up
     
-    0.18	WARNING: Previous versions of TreeTime (<0.7.0) RECONSTRUCTED sequences of
+    0.19	WARNING: Previous versions of TreeTime (<0.7.0) RECONSTRUCTED sequences of
         	tips at positions with AMBIGUOUS bases. This resulted in unexpected
         	behavior is some cases and is no longer done by default. If you want to
         	replace those ambiguous sites with their most likely state, rerun with
@@ -256,7 +256,7 @@ for i, newick in enumerate(newicks, start=1):
     
     Inferred sequence evolution model (saved as results/gard_analysis/partition_2/molecular_clock.txt):
     Root-Tip-Regression:
-     --rate:	3.929e-04
+     --rate:	3.817e-04
      --r^2:  	0.95
     
     --- saved tree as 
@@ -434,7 +434,9 @@ display(Image(config['gard_tanglegram']))
 
 
 
+    
 ![png](gard_tanglegram_files/gard_tanglegram_17_1.png)
+    
 
 
 

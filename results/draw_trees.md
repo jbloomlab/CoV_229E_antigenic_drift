@@ -22,6 +22,10 @@ import pandas as pd
 import yaml
 ```
 
+    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/ete3-3.1.2-py3.7.egg/ete3/evol/parser/codemlparser.py:221: SyntaxWarning: "is" with a literal. Did you mean "=="?
+    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/ete3-3.1.2-py3.7.egg/ete3/evol/parser/codemlparser.py:221: SyntaxWarning: "is" with a literal. Did you mean "=="?
+
+
 Read configuration:
 
 
@@ -80,7 +84,9 @@ fig.savefig(config['tree_legend'], bbox_inches=bbox)
 
 
 
+    
 ![png](draw_trees_files/draw_trees_10_1.png)
+    
 
 
 Identify strains we specially annotate as they are being used in experiments:
@@ -254,7 +260,9 @@ for branch_len in ['divergence', 'time']:
 
 
 
+    
 ![png](draw_trees_files/draw_trees_14_1.png)
+    
 
 
     
@@ -262,7 +270,9 @@ for branch_len in ['divergence', 'time']:
 
 
 
+    
 ![png](draw_trees_files/draw_trees_14_3.png)
+    
 
 
 

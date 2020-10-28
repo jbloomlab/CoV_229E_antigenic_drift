@@ -29,8 +29,6 @@ def run_nb_to_md(nb):
 
 # Rules -----------------------------------------------------------------------
 
-# making this summary is the target rule (in place of `all`) since it
-# is first rule listed.
 rule all:
     """Target rule with final output files."""
     input:
