@@ -1,0 +1,79 @@
+"""``snakemake`` file that analyzes experimental data."""
+
+# Imports ---------------------------------------------------------------------
+import os
+import re
+
+import pandas as pd
+
+# Configuration ---------------------------------------------------------------
+
+neut_subdirs = [subdir for subdir in os.listdir('.')
+                if os.path.isdir(subdir) and
+                re.fullmatch('\d{4}\-\d{2}-\d{2}', subdir)]
+print('Subdirectories found for following neutralization assay runs:\n  ' +
+      '\n  '.join(neut_subdirs))
+
+# Functions -------------------------------------------------------------------
+
+def run_nb_to_md(nb):
+    """Run Jupyter notebook and put markdown results in `results_dir`."""
+    subprocess.check_call(['jupyter', 'nbconvert',
+                           '--to', 'notebook',
+                           '--execute',
+                           '--inplace',
+                           '--ExecutePreprocessor.timeout=-1',
+                           nb,
+                           ])
+    subprocess.check_call(['jupyter', 'nbconvert',
+                           '--to', 'markdown',
+                           nb,
+                           ])
+
+
+def get_single_file_in_subdir(subdir, ending):
+    """Checks `subdir` contains one file ending in `ending` and return path."""
+    filename = [f for f in os.listdir(subdir) if f.endswith(ending)]
+    if len(filename) == 1:
+        return os.path.join(subdir, filename[0])
+    else:
+        raise ValueError(f"{subdir} does not have one file ending in {ending}")
+
+
+# Rules -----------------------------------------------------------------------
+
+rule aggregate_fract_infect_csvs:
+    """Aggregate experiments in CSV file with all fraction infectivities."""
+    input:
+        csvs=expand("{neut_subdir}/fractinfect.csv",
+                    neut_subdir=neut_subdirs),
+    output:
+        csv='fracinfect.csv'
+    params:
+        dates=neut_subdirs
+    run:
+        (pd.concat([pd.read_csv(csv, index_col=0).assign(date=date)
+                    for csv, date in zip(input.csvs, params.dates)],
+                   ignore_index=True)
+         .to_csv(output.csv, index=False, float_format='%.4f')
+         )
+
+
+rule excel_to_fractinfect_csv:
+    """Convert each Excel file to a fraction infectivity CSV."""
+    input:
+        infile=lambda wc: get_single_file_in_subdir(wc.neut_subdir, '.xlsx'),
+        sheet_map=lambda wc: get_single_file_in_subdir(wc.neut_subdir,
+                                                       'sample_map.csv'), 
+    output:
+        fractinfect_csv="{neut_subdir}/fractinfect.csv",
+    params:
+        plate_layouts_dir='PlateLayouts'
+    shell:
+        """python excel_to_fractinfect.py \
+                {input.infile} \
+                {output.fractinfect_csv} \
+                {input.sheet_map} \
+                {params.plate_layouts_dir} \
+                --allow_cells_only_bg
+        """
