@@ -6,6 +6,7 @@ We use [neutcurve](https://jbloomlab.github.io/neutcurve/) to plot the neutraliz
 
 
 ```python
+import re
 import warnings
 
 from IPython.display import display, HTML
@@ -17,6 +18,8 @@ from neutcurve.colorschemes import CBPALETTE
 from neutcurve.colorschemes import CBMARKERS
 
 import pandas as pd
+
+from plotnine import *
 
 print(f"Using `neutcurve` version {neutcurve.__version__}")
 ```
@@ -77,7 +80,7 @@ assert len(fracinfect) == len(fracinfect.groupby(['serum',
                                                   ]))
 
 # show first few lines of data frame
-display(HTML(fracinfect.head().to_html()))
+display(HTML(fracinfect.head().to_html(index=False)))
 ```
 
     Reading neutralization data from results/fracinfect.csv
@@ -87,7 +90,6 @@ display(HTML(fracinfect.head().to_html()))
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
       <th>serum</th>
       <th>virus</th>
       <th>replicate_on_date</th>
@@ -100,7 +102,6 @@ display(HTML(fracinfect.head().to_html()))
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
       <td>FH007TR</td>
       <td>229E-1992</td>
       <td>1</td>
@@ -111,7 +112,6 @@ display(HTML(fracinfect.head().to_html()))
       <td>2</td>
     </tr>
     <tr>
-      <th>1</th>
       <td>FH007TR</td>
       <td>229E-1992</td>
       <td>1</td>
@@ -122,7 +122,6 @@ display(HTML(fracinfect.head().to_html()))
       <td>2</td>
     </tr>
     <tr>
-      <th>2</th>
       <td>FH007TR</td>
       <td>229E-1992</td>
       <td>1</td>
@@ -133,7 +132,6 @@ display(HTML(fracinfect.head().to_html()))
       <td>2</td>
     </tr>
     <tr>
-      <th>3</th>
       <td>FH007TR</td>
       <td>229E-1992</td>
       <td>1</td>
@@ -144,7 +142,6 @@ display(HTML(fracinfect.head().to_html()))
       <td>2</td>
     </tr>
     <tr>
-      <th>4</th>
       <td>FH007TR</td>
       <td>229E-1992</td>
       <td>1</td>
@@ -214,9 +211,7 @@ plt.close(fig)
 ```
 
     /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/scipy/optimize/minpack.py:828: OptimizeWarning: Covariance of the parameters could not be estimated
-      warnings.warn('Covariance of the parameters could not be estimated',
     /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/neutcurve/hillcurve.py:689: RuntimeWarning: invalid value encountered in power
-      return b + (t - b) / (1 + (c / m)**s)
 
 
     Saving plot to results/all_neut_by_sera.pdf
@@ -235,7 +230,7 @@ Write all of the fit parameters to a file:
 ```python
 print(f"Writing all fit parameters to {all_fit_params}; first few lines also printed below:")
 
-display(HTML(fits.fitParams().head().to_html()))
+display(HTML(fits.fitParams().head().to_html(index=False)))
 
 fits.fitParams().to_csv(all_fit_params, index=False)
 ```
@@ -247,7 +242,6 @@ fits.fitParams().to_csv(all_fit_params, index=False)
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
       <th>serum</th>
       <th>virus</th>
       <th>replicate</th>
@@ -263,7 +257,6 @@ fits.fitParams().to_csv(all_fit_params, index=False)
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
       <td>FH007TR</td>
       <td>229E-1992</td>
       <td>average</td>
@@ -277,7 +270,6 @@ fits.fitParams().to_csv(all_fit_params, index=False)
       <td>0</td>
     </tr>
     <tr>
-      <th>1</th>
       <td>FH007TR</td>
       <td>229E-1984</td>
       <td>average</td>
@@ -291,7 +283,6 @@ fits.fitParams().to_csv(all_fit_params, index=False)
       <td>0</td>
     </tr>
     <tr>
-      <th>2</th>
       <td>FH008WC</td>
       <td>229E-1992</td>
       <td>average</td>
@@ -305,7 +296,6 @@ fits.fitParams().to_csv(all_fit_params, index=False)
       <td>0</td>
     </tr>
     <tr>
-      <th>3</th>
       <td>FH008WC</td>
       <td>229E-1984</td>
       <td>average</td>
@@ -319,7 +309,6 @@ fits.fitParams().to_csv(all_fit_params, index=False)
       <td>0</td>
     </tr>
     <tr>
-      <th>4</th>
       <td>Nothing</td>
       <td>229E-1992</td>
       <td>average</td>
@@ -347,17 +336,21 @@ neut_titers = (
                                                           'interpolated': False}))
     [['serum', 'virus', 'neut_titer', 'is_upper_bound']]
     )
-display(HTML(neut_titers.to_html(float_format='%.1f')))
 
-print(f"Writing to {all_neut_titers}")
+print(f"Writing neut titers to {all_neut_titers}; first few lines also printed below:")
+
+display(HTML(neut_titers.head().to_html(index=False, float_format='%.1f')))
+
 neut_titers.to_csv(all_neut_titers, index=False, float_format='%.1f')
 ```
+
+    Writing neut titers to results/all_neut_titers.csv; first few lines also printed below:
+
 
 
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
       <th>serum</th>
       <th>virus</th>
       <th>neut_titer</th>
@@ -366,295 +359,109 @@ neut_titers.to_csv(all_neut_titers, index=False, float_format='%.1f')
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
       <td>FH007TR</td>
       <td>229E-1992</td>
       <td>10.0</td>
       <td>True</td>
     </tr>
     <tr>
-      <th>1</th>
       <td>FH007TR</td>
       <td>229E-1984</td>
       <td>124.9</td>
       <td>False</td>
     </tr>
     <tr>
-      <th>2</th>
       <td>FH008WC</td>
       <td>229E-1992</td>
       <td>11.8</td>
       <td>False</td>
     </tr>
     <tr>
-      <th>3</th>
       <td>FH008WC</td>
       <td>229E-1984</td>
       <td>684.4</td>
       <td>False</td>
     </tr>
     <tr>
-      <th>4</th>
       <td>Nothing</td>
       <td>229E-1992</td>
       <td>10.0</td>
       <td>True</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>Nothing</td>
-      <td>229E-1984</td>
-      <td>10.0</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>FR1377</td>
-      <td>229E-1992</td>
-      <td>10.0</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>FR1377</td>
-      <td>229E-1984</td>
-      <td>10.0</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>SD87_2</td>
-      <td>229E-1992</td>
-      <td>11.7</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>SD87_2</td>
-      <td>229E-1984</td>
-      <td>170.5</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>SD87_4</td>
-      <td>229E-1992</td>
-      <td>29.9</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>SD87_4</td>
-      <td>229E-1984</td>
-      <td>370.3</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>SD87_6</td>
-      <td>229E-1992</td>
-      <td>36.3</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>SD87_6</td>
-      <td>229E-1984</td>
-      <td>117.0</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>SD85_2</td>
-      <td>229E-1992</td>
-      <td>10.2</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>SD85_2</td>
-      <td>229E-1984</td>
-      <td>10.0</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>SD85_3</td>
-      <td>229E-1992</td>
-      <td>23.5</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>SD85_3</td>
-      <td>229E-1984</td>
-      <td>330.2</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>SD85_5</td>
-      <td>229E-1992</td>
-      <td>11.7</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>SD85_5</td>
-      <td>229E-1984</td>
-      <td>106.9</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>SD86_5</td>
-      <td>229E-1992</td>
-      <td>70.5</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>SD86_5</td>
-      <td>229E-1984</td>
-      <td>131.7</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>SD86_6</td>
-      <td>229E-1992</td>
-      <td>23.2</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>SD86_6</td>
-      <td>229E-1984</td>
-      <td>109.7</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>SD87_5</td>
-      <td>229E-1984</td>
-      <td>28.9</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>SD87_1</td>
-      <td>229E-1984</td>
-      <td>77.7</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>SD87_3</td>
-      <td>229E-1984</td>
-      <td>31.0</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>SD86_3</td>
-      <td>229E-1984</td>
-      <td>15.4</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>SD86_4</td>
-      <td>229E-1984</td>
-      <td>29.9</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>29</th>
-      <td>SD85_6</td>
-      <td>229E-1984</td>
-      <td>46.4</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>SD86_1</td>
-      <td>229E-1984</td>
-      <td>10.0</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>31</th>
-      <td>SD86_2</td>
-      <td>229E-1984</td>
-      <td>41.1</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>32</th>
-      <td>SD85_1</td>
-      <td>229E-1984</td>
-      <td>23.0</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>33</th>
-      <td>SD85_4</td>
-      <td>229E-1984</td>
-      <td>10.5</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>34</th>
-      <td>FH010WB</td>
-      <td>229E-1984</td>
-      <td>27.9</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>35</th>
-      <td>FH011KG</td>
-      <td>229E-1984</td>
-      <td>11.4</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>36</th>
-      <td>FH004MM</td>
-      <td>229E-1984</td>
-      <td>28.9</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>37</th>
-      <td>FH005DJ</td>
-      <td>229E-1984</td>
-      <td>71.1</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>38</th>
-      <td>FH003MJ</td>
-      <td>229E-1984</td>
-      <td>59.6</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>39</th>
-      <td>FH012MA</td>
-      <td>229E-1984</td>
-      <td>17.6</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>40</th>
-      <td>FH006SM</td>
-      <td>229E-1984</td>
-      <td>15.8</td>
-      <td>False</td>
     </tr>
   </tbody>
 </table>
 
 
-    Writing to results/all_neut_titers.csv
+Now for plotting annotate neut titers with information about:
+ - virus year
+ - titer of serum against the 1984 virus
 
+
+```python
+def get_virus_year(virus):
+    m = re.fullmatch('229E\-(?P<year>\d{4})', virus)
+    if not m:
+        raise ValueError(f"cannot match virus year in {virus}")
+    else:
+        return int(m.group('year'))
+
+annotated_neut_titers = (
+    neut_titers
+    .assign(virus_year=lambda x: x['virus'].map(get_virus_year))
+    )
+
+annotated_neut_titers = (
+    annotated_neut_titers
+    .merge(annotated_neut_titers.query('virus_year == 1984')
+                                [['serum', 'neut_titer']]
+                                .drop_duplicates()
+                                .rename(columns={'neut_titer': 'titer_1984'}),
+           how='left', on='serum'
+           )
+    )
+```
+
+Get lower bound for neutralization titers and make sure consistent across all samples:
+
+
+```python
+titer_lower_bound = neut_titers.query('is_upper_bound')['neut_titer'].min()
+
+print(f"The lower bound on measurable neutralization titers is {titer_lower_bound}")
+
+assert (neut_titers.query('is_upper_bound')['neut_titer'] == titer_lower_bound).all()
+```
+
+    The lower bound on measurable neutralization titers is 10.0
+
+
+Now plot neutralization titers as a function of virus isolation date for all viruses with a titer against the 1984 virus of at least 100.
+
+
+```python
+p = (
+    ggplot(annotated_neut_titers
+           .query('titer_1984 > 100')
+           ) +
+    aes(x='virus_year', y='neut_titer') +
+    geom_point() +
+    geom_line() +
+    facet_wrap('~ serum') +
+    scale_y_log10() +
+    theme(axis_text_x=element_text(angle=90)) +
+    geom_hline(yintercept=titer_lower_bound, linetype='dotted')
+    )
+
+_ = p.draw()
+```
+
+
+    
+![png](analyze_neut_data_files/analyze_neut_data_21_0.png)
+    
+
+
+
+```python
+
+```
