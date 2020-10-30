@@ -55,7 +55,7 @@ rule aggregate_fract_infect_csvs:
         (pd.concat([pd.read_csv(csv, index_col=0).assign(date=date)
                     for csv, date in zip(input.csvs, params.dates)],
                    ignore_index=True)
-         .to_csv(output.csv, index=False, float_format='%.4f')
+         .to_csv(output.csv, index=False, float_format='%.4g')
          )
 
 
