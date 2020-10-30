@@ -27,6 +27,7 @@ def run_nb_to_md(nb):
                            ])
     subprocess.check_call(['jupyter', 'nbconvert',
                            '--to', 'markdown',
+                           '--output-dir', 'results',
                            nb,
                            ])
 
@@ -42,13 +43,25 @@ def get_single_file_in_subdir(subdir, ending):
 
 # Rules -----------------------------------------------------------------------
 
+rule analyze_neut_curves:
+    input:
+        fracinfect='results/fracinfect.csv',
+    output:
+        'results/all_neut_replicates.pdf',
+        'results/all_neut_by_sera.pdf',
+        'results/all_fit_params.csv',
+        'results/all_neut_titers.csv',
+    run:
+        run_nb_to_md('analyze_neut_data.ipynb')
+
+
 rule aggregate_fract_infect_csvs:
     """Aggregate experiments in CSV file with all fraction infectivities."""
     input:
         csvs=expand("{neut_subdir}/fractinfect.csv",
                     neut_subdir=neut_subdirs),
     output:
-        csv='fracinfect.csv'
+        csv='results/fracinfect.csv'
     params:
         dates=neut_subdirs
     run:

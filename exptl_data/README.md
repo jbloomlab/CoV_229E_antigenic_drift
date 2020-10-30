@@ -13,3 +13,5 @@ as described in the [top-level README](../README.md).
 Then run [Snakefile](Snakefile) with the command:
 
     snakemake -j 1
+
+The results of the analysis are in the Jupyter notebook [analyze_neut_data.ipynb](analyze_neut_data.ipynb) and its Markdown rendering at [results/analyze_neut_data.md](results/analyze_neut_data.md).
