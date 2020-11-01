@@ -30,7 +30,7 @@ The Genbank protein accession for the Spike used in that study is [AAK32191](htt
 This accession was downloaded in GenePept format, and then manually annotated to describe key domains / motifs (using the definitions in [Li et al (2019)](https://elifesciences.org/articles/51230)) to create [data/AAK32191_hand_annotated.gp](data/AAK32191_hand_annotated.gp).
 
 ## Manual steps to generate experimental neutralization data
-The experimental data are in [./exptl_data/](expt_data).
+The experimental data are in [./exptl_data/](exptl_data).
 
 ## Steps run automatically by Snakemake pipeline
 The remaining steps are run automatically using [snakemake](https://snakemake.readthedocs.io/) to run [Snakefile](Snakefile), which reads its configuration from [config.yaml](config.yaml).
