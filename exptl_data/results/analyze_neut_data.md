@@ -283,6 +283,19 @@ fits.fitParams().to_csv(all_fit_params, index=False)
       <td>0</td>
     </tr>
     <tr>
+      <td>FH007TR</td>
+      <td>229E-2001</td>
+      <td>average</td>
+      <td>2</td>
+      <td>0.100000</td>
+      <td>lower</td>
+      <td>&gt;0.1</td>
+      <td>0.102537</td>
+      <td>1.004779</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
       <td>FH008WC</td>
       <td>229E-1992</td>
       <td>average</td>
@@ -305,19 +318,6 @@ fits.fitParams().to_csv(all_fit_params, index=False)
       <td>0.00146</td>
       <td>0.001461</td>
       <td>0.765615</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td>Nothing</td>
-      <td>229E-1992</td>
-      <td>average</td>
-      <td>2</td>
-      <td>0.100000</td>
-      <td>lower</td>
-      <td>&gt;0.1</td>
-      <td>1.376719</td>
-      <td>8.518559</td>
       <td>1</td>
       <td>0</td>
     </tr>
@@ -371,6 +371,12 @@ neut_titers.to_csv(all_neut_titers, index=False, float_format='%.1f')
       <td>False</td>
     </tr>
     <tr>
+      <td>FH007TR</td>
+      <td>229E-2001</td>
+      <td>10.0</td>
+      <td>True</td>
+    </tr>
+    <tr>
       <td>FH008WC</td>
       <td>229E-1992</td>
       <td>11.8</td>
@@ -381,12 +387,6 @@ neut_titers.to_csv(all_neut_titers, index=False, float_format='%.1f')
       <td>229E-1984</td>
       <td>684.4</td>
       <td>False</td>
-    </tr>
-    <tr>
-      <td>Nothing</td>
-      <td>229E-1992</td>
-      <td>10.0</td>
-      <td>True</td>
     </tr>
   </tbody>
 </table>
