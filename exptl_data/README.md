@@ -4,7 +4,10 @@ Each neutralization assay should have its data stored in an Excel file in a subd
 The subdirectories should also contain a `sample_map.csv` file that maps the Excel file data to the samples in a format that is readable by the Python script [excel_to_fractinfect.py](excel_to_fractinfect.py) (see [here](https://github.com/jbloomlab/exceltofractinfect) for more on this script, which was written by Kate Crawford).
 The plate layouts referred to by the sample maps are in [./PlateLayouts/](PlateLayouts).
 
-Then [Snakefile](Snakefile) can be used to analyze the neutralization data by running.
+The file [serum_info.csv](serum_info.csv) maps the serum names to relevant information about the individual.
+
+Then [Snakefile](Snakefile) can be used to analyze the neutralization data.
+It does this by first processing the Excel neutralization data, and then running the Jupyter notebook [analyze_neut_data.ipynb](analyze_neut_data.ipynb).
 First make sure you have activated the `conda` environment with:
 
     conda activate CoV_229E_antigenic_drift

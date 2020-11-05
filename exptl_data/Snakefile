@@ -46,6 +46,7 @@ def get_single_file_in_subdir(subdir, ending):
 rule analyze_neut_curves:
     input:
         fracinfect='results/fracinfect.csv',
+        serum_info='serum_info.csv',
     output:
         'results/all_neut_replicates.pdf',
         'results/all_neut_by_sera.pdf',

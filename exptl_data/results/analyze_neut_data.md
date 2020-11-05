@@ -33,6 +33,7 @@ Specify input / output files:
 ```python
 # input files
 fracinfect_file = 'results/fracinfect.csv'
+serum_info_file = 'serum_info.csv'
 
 # output files
 all_replicate_curves = 'results/all_neut_replicates.pdf'
@@ -41,7 +42,7 @@ all_fit_params = 'results/all_fit_params.csv'
 all_neut_titers = 'results/all_neut_titers.csv'
 ```
 
-Read in the neutralization data:
+Read in the neutralization data, dropping sera labeled as "Nothing":
 
 
 ```python
@@ -54,6 +55,7 @@ fracinfect = pd.read_csv(fracinfect_file)
 #  - replicate_all_dates: number replicates sequentially across all dates
 fracinfect = (
     fracinfect
+    .query('serum != "Nothing"')
     .assign(replicate_with_date=lambda x: x['replicate'].astype(str) +
                                           ' (' + x['date'] + ')')
     .rename(columns={'replicate': 'replicate_on_date'})
@@ -109,7 +111,7 @@ display(HTML(fracinfect.head().to_html(index=False)))
       <td>0.4530</td>
       <td>2020-10-22</td>
       <td>1 (2020-10-22)</td>
-      <td>2</td>
+      <td>1</td>
     </tr>
     <tr>
       <td>FH007TR</td>
@@ -119,7 +121,7 @@ display(HTML(fracinfect.head().to_html(index=False)))
       <td>0.7756</td>
       <td>2020-10-22</td>
       <td>1 (2020-10-22)</td>
-      <td>2</td>
+      <td>1</td>
     </tr>
     <tr>
       <td>FH007TR</td>
@@ -129,7 +131,7 @@ display(HTML(fracinfect.head().to_html(index=False)))
       <td>0.8930</td>
       <td>2020-10-22</td>
       <td>1 (2020-10-22)</td>
-      <td>2</td>
+      <td>1</td>
     </tr>
     <tr>
       <td>FH007TR</td>
@@ -139,7 +141,7 @@ display(HTML(fracinfect.head().to_html(index=False)))
       <td>0.9029</td>
       <td>2020-10-22</td>
       <td>1 (2020-10-22)</td>
-      <td>2</td>
+      <td>1</td>
     </tr>
     <tr>
       <td>FH007TR</td>
@@ -149,7 +151,90 @@ display(HTML(fracinfect.head().to_html(index=False)))
       <td>1.2490</td>
       <td>2020-10-22</td>
       <td>1 (2020-10-22)</td>
-      <td>2</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+
+Get information on sera:
+
+
+```python
+serum_info = (
+    pd.read_csv(serum_info_file)
+    .assign(collection_date=lambda x: pd.to_datetime(x['collection_date']),
+            collection_year=lambda x: x['collection_date'].dt.year +
+                                      (x['collection_date'].dt.dayofyear - 1) / 365,
+            )
+    )
+    
+assert len(serum_info) == serum_info['serum'].nunique()
+print(f"Read information for {len(serum_info)} sera")
+
+sera_lacking_info = set(fracinfect['serum']) - set(serum_info['serum'])
+if sera_lacking_info:
+    raise ValueError(f"lacking information for these sera: {sera_lacking_info}")
+
+# show first few lines of sera information data frame:
+display(HTML(serum_info.head().to_html(index=False)))
+```
+
+    Read information for 28 sera
+
+
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>serum</th>
+      <th>collection_date</th>
+      <th>age</th>
+      <th>category</th>
+      <th>notes</th>
+      <th>collection_year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SD85_1</td>
+      <td>1985-01-03</td>
+      <td>need from Terry</td>
+      <td>human</td>
+      <td>sera</td>
+      <td>1985.005479</td>
+    </tr>
+    <tr>
+      <td>SD85_2</td>
+      <td>1985-01-08</td>
+      <td>need from Terry</td>
+      <td>human</td>
+      <td>sera</td>
+      <td>1985.019178</td>
+    </tr>
+    <tr>
+      <td>SD85_3</td>
+      <td>1985-04-10</td>
+      <td>need from Terry</td>
+      <td>human</td>
+      <td>sera</td>
+      <td>1985.271233</td>
+    </tr>
+    <tr>
+      <td>SD85_4</td>
+      <td>1985-04-11</td>
+      <td>need from Terry</td>
+      <td>human</td>
+      <td>sera</td>
+      <td>1985.273973</td>
+    </tr>
+    <tr>
+      <td>SD85_5</td>
+      <td>1985-04-18</td>
+      <td>need from Terry</td>
+      <td>human</td>
+      <td>sera</td>
+      <td>1985.293151</td>
     </tr>
   </tbody>
 </table>
@@ -191,11 +276,11 @@ plt.close(fig)
 
 
     
-![png](analyze_neut_data_files/analyze_neut_data_9_1.png)
+![png](analyze_neut_data_files/analyze_neut_data_11_1.png)
     
 
 
-Make a plot showing:
+Make a plot showing all viruses against each sera:
 
 
 ```python
@@ -210,7 +295,6 @@ display(fig)
 plt.close(fig)
 ```
 
-    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/scipy/optimize/minpack.py:828: OptimizeWarning: Covariance of the parameters could not be estimated
     /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/neutcurve/hillcurve.py:689: RuntimeWarning: invalid value encountered in power
 
 
@@ -220,7 +304,7 @@ plt.close(fig)
 
 
     
-![png](analyze_neut_data_files/analyze_neut_data_11_2.png)
+![png](analyze_neut_data_files/analyze_neut_data_13_2.png)
     
 
 
@@ -325,7 +409,7 @@ fits.fitParams().to_csv(all_fit_params, index=False)
 </table>
 
 
-Get neutralization titers:
+Get neutralization titers, and merge them with information on the sera:
 
 
 ```python
@@ -335,6 +419,8 @@ neut_titers = (
     .assign(is_upper_bound=lambda x: x['ic50_bound'].map({'lower': True,
                                                           'interpolated': False}))
     [['serum', 'virus', 'neut_titer', 'is_upper_bound']]
+    .merge(serum_info[['serum', 'collection_date', 'collection_year', 'age']],
+           how='left', validate='many_to_one', on='serum')
     )
 
 print(f"Writing neut titers to {all_neut_titers}; first few lines also printed below:")
@@ -355,6 +441,9 @@ neut_titers.to_csv(all_neut_titers, index=False, float_format='%.1f')
       <th>virus</th>
       <th>neut_titer</th>
       <th>is_upper_bound</th>
+      <th>collection_date</th>
+      <th>collection_year</th>
+      <th>age</th>
     </tr>
   </thead>
   <tbody>
@@ -363,30 +452,45 @@ neut_titers.to_csv(all_neut_titers, index=False, float_format='%.1f')
       <td>229E-1992</td>
       <td>10.0</td>
       <td>True</td>
+      <td>1989-08-29</td>
+      <td>1989.7</td>
+      <td>28</td>
     </tr>
     <tr>
       <td>FH007TR</td>
       <td>229E-1984</td>
       <td>124.9</td>
       <td>False</td>
+      <td>1989-08-29</td>
+      <td>1989.7</td>
+      <td>28</td>
     </tr>
     <tr>
       <td>FH007TR</td>
       <td>229E-2001</td>
       <td>10.0</td>
       <td>True</td>
+      <td>1989-08-29</td>
+      <td>1989.7</td>
+      <td>28</td>
     </tr>
     <tr>
       <td>FH008WC</td>
       <td>229E-1992</td>
       <td>11.8</td>
       <td>False</td>
+      <td>1989-02-06</td>
+      <td>1989.1</td>
+      <td>unknown</td>
     </tr>
     <tr>
       <td>FH008WC</td>
       <td>229E-1984</td>
       <td>684.4</td>
       <td>False</td>
+      <td>1989-02-06</td>
+      <td>1989.1</td>
+      <td>unknown</td>
     </tr>
   </tbody>
 </table>
@@ -439,15 +543,21 @@ Now plot neutralization titers as a function of virus isolation date for all vir
 
 
 ```python
+df = annotated_neut_titers.query('titer_1984 > 100')
+
 p = (
-    ggplot(annotated_neut_titers
-           .query('titer_1984 > 100')
-           ) +
+    ggplot(df) +
     aes(x='virus_year', y='neut_titer') +
     geom_point() +
     geom_line() +
+    geom_vline(data=df,
+               mapping=aes(xintercept='collection_year'),
+               color='orange',
+               linetype='dashed',
+               ) +
     facet_wrap('~ serum') +
     scale_y_log10() +
+    theme_classic() +
     theme(axis_text_x=element_text(angle=90)) +
     geom_hline(yintercept=titer_lower_bound, linetype='dotted')
     )
@@ -457,7 +567,7 @@ _ = p.draw()
 
 
     
-![png](analyze_neut_data_files/analyze_neut_data_21_0.png)
+![png](analyze_neut_data_files/analyze_neut_data_23_0.png)
     
 
 
