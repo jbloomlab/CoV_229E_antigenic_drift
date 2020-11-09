@@ -180,7 +180,7 @@ if sera_lacking_info:
 display(HTML(serum_info.head().to_html(index=False)))
 ```
 
-    Read information for 28 sera
+    Read information for 47 sera
 
 
 
@@ -199,7 +199,7 @@ display(HTML(serum_info.head().to_html(index=False)))
     <tr>
       <td>SD85_1</td>
       <td>1985-01-03</td>
-      <td>need from Terry</td>
+      <td>27</td>
       <td>human</td>
       <td>sera</td>
       <td>1985.005479</td>
@@ -207,7 +207,7 @@ display(HTML(serum_info.head().to_html(index=False)))
     <tr>
       <td>SD85_2</td>
       <td>1985-01-08</td>
-      <td>need from Terry</td>
+      <td>20</td>
       <td>human</td>
       <td>sera</td>
       <td>1985.019178</td>
@@ -215,7 +215,7 @@ display(HTML(serum_info.head().to_html(index=False)))
     <tr>
       <td>SD85_3</td>
       <td>1985-04-10</td>
-      <td>need from Terry</td>
+      <td>26</td>
       <td>human</td>
       <td>sera</td>
       <td>1985.271233</td>
@@ -223,7 +223,7 @@ display(HTML(serum_info.head().to_html(index=False)))
     <tr>
       <td>SD85_4</td>
       <td>1985-04-11</td>
-      <td>need from Terry</td>
+      <td>23</td>
       <td>human</td>
       <td>sera</td>
       <td>1985.273973</td>
@@ -231,7 +231,7 @@ display(HTML(serum_info.head().to_html(index=False)))
     <tr>
       <td>SD85_5</td>
       <td>1985-04-18</td>
-      <td>need from Terry</td>
+      <td>23</td>
       <td>human</td>
       <td>sera</td>
       <td>1985.293151</td>
@@ -355,6 +355,32 @@ fits.fitParams().to_csv(all_fit_params, index=False)
     </tr>
     <tr>
       <td>FH007TR</td>
+      <td>229E-2016</td>
+      <td>average</td>
+      <td>2</td>
+      <td>0.100000</td>
+      <td>lower</td>
+      <td>&gt;0.1</td>
+      <td>0.134752</td>
+      <td>0.914696</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>FH007TR</td>
+      <td>229E-2008</td>
+      <td>average</td>
+      <td>2</td>
+      <td>0.100000</td>
+      <td>lower</td>
+      <td>&gt;0.1</td>
+      <td>0.109499</td>
+      <td>0.865695</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>FH007TR</td>
       <td>229E-1984</td>
       <td>average</td>
       <td>2</td>
@@ -376,32 +402,6 @@ fits.fitParams().to_csv(all_fit_params, index=False)
       <td>&gt;0.1</td>
       <td>0.102537</td>
       <td>1.004779</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td>FH008WC</td>
-      <td>229E-1992</td>
-      <td>average</td>
-      <td>2</td>
-      <td>0.084957</td>
-      <td>interpolated</td>
-      <td>0.085</td>
-      <td>0.084957</td>
-      <td>1.268635</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td>FH008WC</td>
-      <td>229E-1984</td>
-      <td>average</td>
-      <td>2</td>
-      <td>0.001461</td>
-      <td>interpolated</td>
-      <td>0.00146</td>
-      <td>0.001461</td>
-      <td>0.765615</td>
       <td>1</td>
       <td>0</td>
     </tr>
@@ -458,6 +458,24 @@ neut_titers.to_csv(all_neut_titers, index=False, float_format='%.1f')
     </tr>
     <tr>
       <td>FH007TR</td>
+      <td>229E-2016</td>
+      <td>10.0</td>
+      <td>True</td>
+      <td>1989-08-29</td>
+      <td>1989.7</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <td>FH007TR</td>
+      <td>229E-2008</td>
+      <td>10.0</td>
+      <td>True</td>
+      <td>1989-08-29</td>
+      <td>1989.7</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <td>FH007TR</td>
       <td>229E-1984</td>
       <td>124.9</td>
       <td>False</td>
@@ -473,24 +491,6 @@ neut_titers.to_csv(all_neut_titers, index=False, float_format='%.1f')
       <td>1989-08-29</td>
       <td>1989.7</td>
       <td>28</td>
-    </tr>
-    <tr>
-      <td>FH008WC</td>
-      <td>229E-1992</td>
-      <td>11.8</td>
-      <td>False</td>
-      <td>1989-02-06</td>
-      <td>1989.1</td>
-      <td>unknown</td>
-    </tr>
-    <tr>
-      <td>FH008WC</td>
-      <td>229E-1984</td>
-      <td>684.4</td>
-      <td>False</td>
-      <td>1989-02-06</td>
-      <td>1989.1</td>
-      <td>unknown</td>
     </tr>
   </tbody>
 </table>

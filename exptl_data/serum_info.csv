@@ -1,22 +1,41 @@
 serum,collection_date,age,category,notes
-SD85_1,1/3/85,need from Terry,human,sera
-SD85_2,1/8/85,need from Terry,human,sera
-SD85_3,4/10/85,need from Terry,human,sera
-SD85_4,4/11/85,need from Terry,human,sera
-SD85_5,4/18/85,need from Terry,human,sera
-SD85_6,4/18/85,need from Terry,human,sera
-SD86_1,1/24/86,need from Terry,human,sera
-SD86_2,1/29/86,need from Terry,human,sera
-SD86_3,2/13/86,need from Terry,human,sera
-SD86_4,2/19/86,need from Terry,human,sera
-SD86_5,3/10/86,need from Terry,human,sera
-SD86_6,4/10/86,need from Terry,human,sera
-SD87_1,1/8/87,need from Terry,human,sera
-SD87_2,1/22/87,need from Terry,human,sera
-SD87_3,2/11/87,need from Terry,human,sera
-SD87_4,3/16/87,need from Terry,human,sera
-SD87_5,4/9/87,need from Terry,human,sera
-SD87_6,4/30/87,need from Terry,human,sera
+SD85_1,1/3/85,27,human,sera
+SD85_2,1/8/85,20,human,sera
+SD85_3,4/10/85,26,human,sera
+SD85_4,4/11/85,23,human,sera
+SD85_5,4/18/85,23,human,sera
+SD85_6,4/18/85,40,human,sera
+SD86_1,1/24/86,50,human,sera
+SD86_2,1/29/86,23,human,sera
+SD86_3,2/13/86,27,human,sera
+SD86_4,2/19/86,25,human,sera
+SD86_5,3/10/86,35,human,sera
+SD86_6,4/10/86,32,human,sera
+SD87_1,1/8/87,38,human,sera
+SD87_2,1/22/87,24,human,sera
+SD87_3,2/11/87,32,human,sera
+SD87_4,3/16/87,22,human,sera
+SD87_5,4/9/87,36,human,sera
+SD87_6,4/30/87,29,human,sera
+SD92_1,1/21/92,41,human,sera
+SD92_2,2/28/92,30,human,sera
+SD92_3,3/5/92,unknown,human,sera
+SD92_4,3/17/92,53,human,sera
+SD92_5,4/27/92,41,human,sera
+SD92_6,4/28/92,42,human,sera
+SD93_1,1/22/93,unknown,human,sera
+SD93_2,2/24/93,30,human,sera
+SD93_3,3/4/93,29,human,sera
+SD93_4,3/15/93,20,human,sera
+SD93_5,4/2/93,31,human,sera
+SD93_6,4/21/93,53,human,sera
+SD95_1,1/10/95,unknown,human,sera
+SD95_2,1/16/95,56,human,sera
+SD95_3,2/21/95,unknown,human,sera
+SD95_4,2/28/95,unknown,human,sera
+SD95_5,3/20/95,5,human,sera
+SD95_6,4/5/95,unknown,human,sera
+SD95_7,4/7/95,12,human,sera
 FH003MJ,11/9/87,<40,human,sera
 FH006SM,12/20/86,<40,human,sera
 FH012MA,6/29/87,<40,human,sera
