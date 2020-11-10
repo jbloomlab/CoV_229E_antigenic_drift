@@ -52,6 +52,7 @@ rule analyze_neut_curves:
         'results/all_neut_by_sera.pdf',
         'results/all_fit_params.csv',
         'results/all_neut_titers.csv',
+        'results/analyze_neut_data.md',
     run:
         run_nb_to_md('analyze_neut_data.ipynb')
 
