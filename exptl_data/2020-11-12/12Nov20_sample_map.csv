@@ -1,0 +1,25 @@
+DateRead,Plate,Sample,SampleNum,Virus,PlateLayout,StartDil,DilFactor
+11/12/20,Plate 1-V,SD93_1,1,229E-1984,layout1.csv,0.1,3
+11/12/20,Plate 1-V,SD93_4,2,229E-1984,layout1.csv,0.1,3
+11/12/20,Plate 1-V,SD95_3,3,229E-1984,layout1.csv,0.1,3
+11/12/20,Plate 1-V,SD95_4,4,229E-1984,layout1.csv,0.1,3
+11/12/20,Plate 2-V,SD95_7,1,229E-1984,layout1.csv,0.1,3
+11/12/20,Plate 2-V,FR1377,2,229E-1984,layout1.csv,0.1,3
+11/12/20,Plate 3-V,SD93_1,1,229E-2001,layout1.csv,0.1,3
+11/12/20,Plate 3-V,SD93_4,2,229E-2001,layout1.csv,0.1,3
+11/12/20,Plate 3-V,SD95_3,3,229E-2001,layout1.csv,0.1,3
+11/12/20,Plate 3-V,SD95_4,4,229E-2001,layout1.csv,0.1,3
+11/12/20,Plate 4-V,SD95_7,1,229E-2001,layout1.csv,0.1,3
+11/12/20,Plate 4-V,FR1377,2,229E-2001,layout1.csv,0.1,3
+11/12/20,Plate 5-V,SD93_1,1,229E-2008,layout1.csv,0.1,3
+11/12/20,Plate 5-V,SD93_4,2,229E-2008,layout1.csv,0.1,3
+11/12/20,Plate 5-V,SD95_3,3,229E-2008,layout1.csv,0.1,3
+11/12/20,Plate 5-V,SD95_4,4,229E-2008,layout1.csv,0.1,3
+11/12/20,Plate 6-V,SD95_7,1,229E-2008,layout1.csv,0.1,3
+11/12/20,Plate 6-V,FR1377,2,229E-2008,layout1.csv,0.1,3
+11/12/20,Plate 7-V,SD93_1,1,229E-2016,layout1.csv,0.1,3
+11/12/20,Plate 7-V,SD93_4,2,229E-2016,layout1.csv,0.1,3
+11/12/20,Plate 7-V,SD95_3,3,229E-2016,layout1.csv,0.1,3
+11/12/20,Plate 7-V,SD95_4,4,229E-2016,layout1.csv,0.1,3
+11/12/20,Plate 8-V,SD95_7,1,229E-2016,layout1.csv,0.1,3
+11/12/20,Plate 8-V,FR1377,2,229E-2016,layout1.csv,0.1,3

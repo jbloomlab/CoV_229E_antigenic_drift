@@ -560,7 +560,7 @@ annotated_neut_titers = (
                                 .query('collection_date.dt.year >= virus_year')
                                 .groupby('serum', as_index=False)
                                 .aggregate(closest_virus_year=pd.NamedAgg('virus_year', 'last'),
-                                           closest_virus=pd.NamedAgg('virus', 'first')
+                                           closest_virus=pd.NamedAgg('virus', 'last')
                                            ),
            how='left', on='serum')
     .assign(closest_virus_year=lambda x: x['closest_virus_year'].astype('Int64'))
@@ -594,7 +594,7 @@ Plot distribution of titers for each sera against it's "closest" virus:
 ```python
 closest_virus_df = pd.DataFrame()
 for closest_virus_year, df in annotated_neut_titers.groupby('closest_virus_year'):
-    assert df['closest_virus'].nunique() == 1
+    assert df['closest_virus'].nunique() == 1, df['closest_virus'].unique()
     closest_virus = df['closest_virus'].unique().tolist()[0]
     earliest_sera = df['collection_year'].round().sort_values().astype(int).tolist()[0]
     latest_sera = df['collection_year'].round().sort_values().astype(int).tolist()[-1]
@@ -864,12 +864,9 @@ p = (
 _ = p.draw()
 ```
 
-    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/geoms/geom_path.py:81: PlotnineWarning: geom_path: Each group consist of only one observation. Do you need to adjust the group aesthetic?
-
-
 
     
-![png](analyze_neut_data_files/analyze_neut_data_27_1.png)
+![png](analyze_neut_data_files/analyze_neut_data_27_0.png)
     
 
 
