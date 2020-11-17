@@ -83,7 +83,11 @@ assert len(fracinfect) == len(fracinfect.groupby(['serum',
                                                   ]))
 
 # order the viruses
-virus_order = ['229E-1984', '229E-1992', '229E-2001', '229E-2008', '229E-2016']
+virus_order = ['229E-1984', '229E-1992', '229E-2001', '229E-2008', '229E-2016',
+               '229E-1992-RBD', '229E-2001-RBD', '229E-2016-RBD']
+extra_viruses = set(fracinfect['virus']) - set(virus_order)
+if extra_viruses:
+    raise ValueError(f"extra viruses not in `virus_order`:\n{extra_viruses}")
 fracinfect = (
     fracinfect
     .assign(virus=lambda x: pd.Categorical(x['virus'], virus_order, ordered=True))
@@ -320,6 +324,7 @@ fig, _ = fits.plotSera(xlabel='serum dilution',
                        viruses=fracinfect['virus'].sort_values().unique(),
                        sera=serum_info['serum'],
                        titles=serum_info['serum_year'],
+                       max_viruses_per_subplot=8,
                        )
 
 print(f"Saving plot to {all_neut_by_sera_curves}\n")
@@ -537,13 +542,14 @@ neut_titers.to_csv(all_neut_titers, index=False, float_format='%.1f')
 
 
 Now for plotting annotate neut titers with information about:
- - virus year
- - the "closest" virus for each sera, which is the most recent virus isolated no later than the sera collection year
+ - virus year (for RBD chimeras this is year of the RBD)
+ - the "closest" virus for each sera, which is the most recent (non-RBD chimera) virus isolated no later than the sera collection year
+ - whether or not the virus is a RBD chimera
 
 
 ```python
 def get_virus_year(virus):
-    m = re.fullmatch('229E\-(?P<year>\d{4})', virus)
+    m = re.fullmatch('229E\-(?P<year>\d{4})(?:\-RBD)?', virus)
     if not m:
         raise ValueError(f"cannot match virus year in {virus}")
     else:
@@ -551,12 +557,14 @@ def get_virus_year(virus):
 
 annotated_neut_titers = (
     neut_titers
-    .assign(virus_year=lambda x: x['virus'].map(get_virus_year))
+    .assign(virus_year=lambda x: x['virus'].map(get_virus_year),
+            rbd_chimera=lambda x: x['virus'].map(lambda v: v[-4:] == '-RBD'))
     )
 
 annotated_neut_titers = (
     annotated_neut_titers
     .merge(annotated_neut_titers.sort_values('collection_year')
+                                .query('not rbd_chimera')
                                 .query('collection_date.dt.year >= virus_year')
                                 .groupby('serum', as_index=False)
                                 .aggregate(closest_virus_year=pd.NamedAgg('virus_year', 'last'),
@@ -588,7 +596,7 @@ Set titer cutoff for samples that are analyzed against additional years:
 titer_cutoff = 90
 ```
 
-Plot distribution of titers for each sera against it's "closest" virus:
+Plot distribution of titers for each sera against it's "closest" virus that is **not** a RBD chimera:
 
 
 ```python
@@ -638,9 +646,9 @@ _ = p.draw()
 ```
 
     
-    There are 27 sera with a most recent closest virus of 229E-1984.
-    These sera were collected between 1985 and 1990.
-    9 of the 27 sera have neut titers >90:
+    There are 28 sera with a most recent closest virus of 229E-1984.
+    These sera were collected between 1985 and 1995.
+    9 of the 28 sera have neut titers >90:
 
 
 
@@ -664,7 +672,7 @@ _ = p.draw()
       <td>unknown</td>
       <td>684.4</td>
       <td>False</td>
-      <td>1985-1990</td>
+      <td>1985-1995</td>
     </tr>
     <tr>
       <td>SD87_4</td>
@@ -673,16 +681,25 @@ _ = p.draw()
       <td>22</td>
       <td>370.3</td>
       <td>False</td>
-      <td>1985-1990</td>
+      <td>1985-1995</td>
     </tr>
     <tr>
       <td>SD85_3</td>
       <td>229E-1984</td>
       <td>1985-04-10</td>
       <td>26</td>
-      <td>330.2</td>
+      <td>236.1</td>
       <td>False</td>
-      <td>1985-1990</td>
+      <td>1985-1995</td>
+    </tr>
+    <tr>
+      <td>SD95_3</td>
+      <td>229E-1984</td>
+      <td>1995-02-21</td>
+      <td>unknown</td>
+      <td>227.2</td>
+      <td>False</td>
+      <td>1985-1995</td>
     </tr>
     <tr>
       <td>SD87_2</td>
@@ -691,16 +708,7 @@ _ = p.draw()
       <td>24</td>
       <td>170.5</td>
       <td>False</td>
-      <td>1985-1990</td>
-    </tr>
-    <tr>
-      <td>SD86_5</td>
-      <td>229E-1984</td>
-      <td>1986-03-10</td>
-      <td>35</td>
-      <td>131.7</td>
-      <td>False</td>
-      <td>1985-1990</td>
+      <td>1985-1995</td>
     </tr>
     <tr>
       <td>FH007TR</td>
@@ -709,7 +717,7 @@ _ = p.draw()
       <td>28</td>
       <td>124.9</td>
       <td>False</td>
-      <td>1985-1990</td>
+      <td>1985-1995</td>
     </tr>
     <tr>
       <td>SD87_6</td>
@@ -718,34 +726,34 @@ _ = p.draw()
       <td>29</td>
       <td>117.0</td>
       <td>False</td>
-      <td>1985-1990</td>
+      <td>1985-1995</td>
+    </tr>
+    <tr>
+      <td>SD86_5</td>
+      <td>229E-1984</td>
+      <td>1986-03-10</td>
+      <td>35</td>
+      <td>116.6</td>
+      <td>False</td>
+      <td>1985-1995</td>
     </tr>
     <tr>
       <td>SD86_6</td>
       <td>229E-1984</td>
       <td>1986-04-10</td>
       <td>32</td>
-      <td>109.7</td>
+      <td>90.8</td>
       <td>False</td>
-      <td>1985-1990</td>
-    </tr>
-    <tr>
-      <td>SD85_5</td>
-      <td>229E-1984</td>
-      <td>1985-04-18</td>
-      <td>23</td>
-      <td>106.9</td>
-      <td>False</td>
-      <td>1985-1990</td>
+      <td>1985-1995</td>
     </tr>
   </tbody>
 </table>
 
 
     
-    There are 19 sera with a most recent closest virus of 229E-1992.
+    There are 18 sera with a most recent closest virus of 229E-1992.
     These sera were collected between 1992 and 1995.
-    5 of the 19 sera have neut titers >90:
+    4 of the 18 sera have neut titers >90:
 
 
 
@@ -798,15 +806,6 @@ _ = p.draw()
       <td>False</td>
       <td>1992-1995</td>
     </tr>
-    <tr>
-      <td>SD95_3</td>
-      <td>229E-1992</td>
-      <td>1995-02-21</td>
-      <td>unknown</td>
-      <td>91.6</td>
-      <td>False</td>
-      <td>1992-1995</td>
-    </tr>
   </tbody>
 </table>
 
@@ -821,7 +820,9 @@ _ = p.draw()
     
 
 
-Now plot neutralization titers as a function of virus isolation date for all viruses with a titer against the 1984 virus of at least 100.
+Now plot neutralization titers as a function of virus isolation date for all viruses that were above the cutoff for their "closest" virus.
+We do this both for the virus with full spikes and just the RBD chimeras.
+Note that we "duplicate" the 1984 virus be both a full spike and RBD chimera for this plot, as the 1984 virus is really the chimera of the 1984 RBD in the 1984 virus.
 
 
 ```python
@@ -830,6 +831,7 @@ df = (annotated_neut_titers
              on='serum')
       .query('titer_to_closest_virus > @titer_cutoff')
       )
+df = df.append(df.query('virus == "229E-1984"').assign(rbd_chimera=True))
 
 ncol = 4
 nfacets = df['serum_year'].nunique()
@@ -837,9 +839,10 @@ nrow = math.ceil(nfacets / ncol)
 
 p = (
     ggplot(df) +
-    aes(x='virus_year', y='neut_titer', color='sera_range') +
-    geom_point() +
-    geom_line() +
+    aes(x='virus_year', y='neut_titer', color='rbd_chimera',
+        shape='rbd_chimera', linetype='rbd_chimera') +
+    geom_point(alpha=0.8) +
+    geom_line(alpha=0.8) +
     facet_wrap('~ serum_year',
                ncol=ncol,
                nrow=nrow) +
