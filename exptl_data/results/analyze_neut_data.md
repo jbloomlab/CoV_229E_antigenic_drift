@@ -6,6 +6,7 @@ We use [neutcurve](https://jbloomlab.github.io/neutcurve/) to plot the neutraliz
 
 
 ```python
+import itertools
 import math
 import re
 import warnings
@@ -84,7 +85,7 @@ assert len(fracinfect) == len(fracinfect.groupby(['serum',
 
 # order the viruses
 virus_order = ['229E-1984', '229E-1992', '229E-2001', '229E-2008', '229E-2016',
-               '229E-1992-RBD', '229E-2001-RBD', '229E-2016-RBD']
+               '229E-1992-RBD', '229E-2001-RBD', '229E-2008-RBD', '229E-2016-RBD']
 extra_viruses = set(fracinfect['virus']) - set(virus_order)
 if extra_viruses:
     raise ValueError(f"extra viruses not in `virus_order`:\n{extra_viruses}")
@@ -183,7 +184,9 @@ serum_info = (
                                             .map(lambda y: str(int(round(y)))
                                                            if pd.notnull(y)
                                                            else 'unknown'),
-            serum_year=lambda x: x.apply(lambda r: f"{r['serum']} ({r['collection_year_round']})",
+            serum_year=lambda x: x.apply(lambda r: f"{r['serum']} ({r['collection_year_round']})"
+                                                   if r['category'] == 'human' else
+                                                   f"{r['serum']} ({r['category']})",
                                          axis=1)
             )
     .sort_values('collection_date')
@@ -295,6 +298,8 @@ with warnings.catch_warnings():
                                  xlabel='serum dilution',
                                  sera=serum_info['serum'],
                                  viruses=fracinfect['virus'].sort_values().unique(),
+                                 colors=plt.rcParams['axes.prop_cycle'].by_key()['color'] * 2,
+                                 markers=['o', '^', 's', 'D', 'v', '<', '>', 'p'] * 2,
                                  )
     
 print(f"Saving plot to {all_replicate_curves}\n")
@@ -324,7 +329,9 @@ fig, _ = fits.plotSera(xlabel='serum dilution',
                        viruses=fracinfect['virus'].sort_values().unique(),
                        sera=serum_info['serum'],
                        titles=serum_info['serum_year'],
-                       max_viruses_per_subplot=8,
+                       max_viruses_per_subplot=9,
+                       colors=[*CBPALETTE, 'brown'],
+                       markers=[*CBMARKERS, 'x'],
                        )
 
 print(f"Saving plot to {all_neut_by_sera_curves}\n")
@@ -563,7 +570,7 @@ annotated_neut_titers = (
 
 annotated_neut_titers = (
     annotated_neut_titers
-    .merge(annotated_neut_titers.sort_values('collection_year')
+    .merge(annotated_neut_titers.sort_values('virus_year')
                                 .query('not rbd_chimera')
                                 .query('collection_date.dt.year >= virus_year')
                                 .groupby('serum', as_index=False)
@@ -646,9 +653,9 @@ _ = p.draw()
 ```
 
     
-    There are 28 sera with a most recent closest virus of 229E-1984.
-    These sera were collected between 1985 and 1995.
-    9 of the 28 sera have neut titers >90:
+    There are 27 sera with a most recent closest virus of 229E-1984.
+    These sera were collected between 1985 and 1990.
+    8 of the 27 sera have neut titers >90:
 
 
 
@@ -672,16 +679,16 @@ _ = p.draw()
       <td>unknown</td>
       <td>684.4</td>
       <td>False</td>
-      <td>1985-1995</td>
+      <td>1985-1990</td>
     </tr>
     <tr>
       <td>SD87_4</td>
       <td>229E-1984</td>
       <td>1987-03-16</td>
       <td>22</td>
-      <td>370.3</td>
+      <td>372.7</td>
       <td>False</td>
-      <td>1985-1995</td>
+      <td>1985-1990</td>
     </tr>
     <tr>
       <td>SD85_3</td>
@@ -690,25 +697,7 @@ _ = p.draw()
       <td>26</td>
       <td>236.1</td>
       <td>False</td>
-      <td>1985-1995</td>
-    </tr>
-    <tr>
-      <td>SD95_3</td>
-      <td>229E-1984</td>
-      <td>1995-02-21</td>
-      <td>unknown</td>
-      <td>227.2</td>
-      <td>False</td>
-      <td>1985-1995</td>
-    </tr>
-    <tr>
-      <td>SD87_2</td>
-      <td>229E-1984</td>
-      <td>1987-01-22</td>
-      <td>24</td>
-      <td>170.5</td>
-      <td>False</td>
-      <td>1985-1995</td>
+      <td>1985-1990</td>
     </tr>
     <tr>
       <td>FH007TR</td>
@@ -717,16 +706,16 @@ _ = p.draw()
       <td>28</td>
       <td>124.9</td>
       <td>False</td>
-      <td>1985-1995</td>
+      <td>1985-1990</td>
     </tr>
     <tr>
-      <td>SD87_6</td>
+      <td>SD87_2</td>
       <td>229E-1984</td>
-      <td>1987-04-30</td>
-      <td>29</td>
-      <td>117.0</td>
+      <td>1987-01-22</td>
+      <td>24</td>
+      <td>116.8</td>
       <td>False</td>
-      <td>1985-1995</td>
+      <td>1985-1990</td>
     </tr>
     <tr>
       <td>SD86_5</td>
@@ -735,7 +724,16 @@ _ = p.draw()
       <td>35</td>
       <td>116.6</td>
       <td>False</td>
-      <td>1985-1995</td>
+      <td>1985-1990</td>
+    </tr>
+    <tr>
+      <td>SD87_6</td>
+      <td>229E-1984</td>
+      <td>1987-04-30</td>
+      <td>29</td>
+      <td>112.5</td>
+      <td>False</td>
+      <td>1985-1990</td>
     </tr>
     <tr>
       <td>SD86_6</td>
@@ -744,16 +742,16 @@ _ = p.draw()
       <td>32</td>
       <td>90.8</td>
       <td>False</td>
-      <td>1985-1995</td>
+      <td>1985-1990</td>
     </tr>
   </tbody>
 </table>
 
 
     
-    There are 18 sera with a most recent closest virus of 229E-1992.
+    There are 19 sera with a most recent closest virus of 229E-1992.
     These sera were collected between 1992 and 1995.
-    4 of the 18 sera have neut titers >90:
+    5 of the 19 sera have neut titers >90:
 
 
 
@@ -803,6 +801,15 @@ _ = p.draw()
       <td>1993-01-22</td>
       <td>unknown</td>
       <td>95.1</td>
+      <td>False</td>
+      <td>1992-1995</td>
+    </tr>
+    <tr>
+      <td>SD95_3</td>
+      <td>229E-1992</td>
+      <td>1995-02-21</td>
+      <td>unknown</td>
+      <td>91.6</td>
       <td>False</td>
       <td>1992-1995</td>
     </tr>

@@ -1,0 +1,25 @@
+DateRead,Plate,Sample,SampleNum,Virus,PlateLayout,StartDil,DilFactor
+11/23/20,Plate 1-V,SD87_2,1,229E-1984,layout1.csv,0.1,3
+11/23/20,Plate 1-V,SD87_4,2,229E-1984,layout1.csv,0.1,3
+11/23/20,Plate 1-V,SD87_6,3,229E-1984,layout1.csv,0.1,3
+11/23/20,Plate 1-V,FR1377,4,229E-1984,layout1.csv,0.1,3
+11/23/20,Plate 2-V,SD85_3,1,229E-2008-RBD,layout1.csv,0.1,3
+11/23/20,Plate 2-V,SD85_5,2,229E-2008-RBD,layout1.csv,0.1,3
+11/23/20,Plate 2-V,SD86_5,3,229E-2008-RBD,layout1.csv,0.1,3
+11/23/20,Plate 2-V,SD86_6,4,229E-2008-RBD,layout1.csv,0.1,3
+11/23/20,Plate 3-V,SD87_2,1,229E-2008-RBD,layout1.csv,0.1,3
+11/23/20,Plate 3-V,SD87_4,2,229E-2008-RBD,layout1.csv,0.1,3
+11/23/20,Plate 3-V,SD87_6,3,229E-2008-RBD,layout1.csv,0.1,3
+11/23/20,Plate 3-V,FR1377,4,229E-2008-RBD,layout1.csv,0.1,3
+11/23/20,Plate 4-V,FH007TR,1,229E-2008-RBD,layout1.csv,0.1,3
+11/23/20,Plate 4-V,FH008WC,2,229E-2008-RBD,layout1.csv,0.1,3
+11/23/20,Plate 5-V,SD85_3,1,229E-2016-RBD,layout1.csv,0.1,3
+11/23/20,Plate 5-V,SD85_5,2,229E-2016-RBD,layout1.csv,0.1,3
+11/23/20,Plate 5-V,SD86_5,3,229E-2016-RBD,layout1.csv,0.1,3
+11/23/20,Plate 5-V,SD86_6,4,229E-2016-RBD,layout1.csv,0.1,3
+11/23/20,Plate 6-V,SD87_2,1,229E-2016-RBD,layout1.csv,0.1,3
+11/23/20,Plate 6-V,SD87_4,2,229E-2016-RBD,layout1.csv,0.1,3
+11/23/20,Plate 6-V,SD87_6,3,229E-2016-RBD,layout1.csv,0.1,3
+11/23/20,Plate 6-V,FR1377,4,229E-2016-RBD,layout1.csv,0.1,3
+11/23/20,Plate 7-V,FH007TR,1,229E-2016-RBD,layout1.csv,0.1,3
+11/23/20,Plate 7-V,FH008WC,2,229E-2016-RBD,layout1.csv,0.1,3
