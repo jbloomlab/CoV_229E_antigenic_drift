@@ -26,7 +26,7 @@ from plotnine import *
 print(f"Using `neutcurve` version {neutcurve.__version__}")
 ```
 
-    Using `neutcurve` version 0.5.1
+    Using `neutcurve` version 0.5.3
 
 
 Specify input / output files:
@@ -118,53 +118,53 @@ display(HTML(fracinfect.head().to_html(index=False)))
   </thead>
   <tbody>
     <tr>
-      <td>FH003MJ</td>
-      <td>229E-1984</td>
+      <td>AUSAB-01</td>
+      <td>229E-2016</td>
       <td>1</td>
       <td>0.100000</td>
-      <td>0.1043</td>
-      <td>2020-10-02</td>
-      <td>1 (2020-10-02)</td>
+      <td>0.1709</td>
+      <td>2020-11-27</td>
+      <td>1 (2020-11-27)</td>
       <td>2</td>
     </tr>
     <tr>
-      <td>FH003MJ</td>
-      <td>229E-1984</td>
+      <td>AUSAB-01</td>
+      <td>229E-2016</td>
       <td>1</td>
       <td>0.033330</td>
-      <td>0.3108</td>
-      <td>2020-10-02</td>
-      <td>1 (2020-10-02)</td>
+      <td>0.5763</td>
+      <td>2020-11-27</td>
+      <td>1 (2020-11-27)</td>
       <td>2</td>
     </tr>
     <tr>
-      <td>FH003MJ</td>
-      <td>229E-1984</td>
+      <td>AUSAB-01</td>
+      <td>229E-2016</td>
       <td>1</td>
       <td>0.011110</td>
-      <td>0.4958</td>
-      <td>2020-10-02</td>
-      <td>1 (2020-10-02)</td>
+      <td>0.9789</td>
+      <td>2020-11-27</td>
+      <td>1 (2020-11-27)</td>
       <td>2</td>
     </tr>
     <tr>
-      <td>FH003MJ</td>
-      <td>229E-1984</td>
+      <td>AUSAB-01</td>
+      <td>229E-2016</td>
       <td>1</td>
       <td>0.003704</td>
-      <td>1.1130</td>
-      <td>2020-10-02</td>
-      <td>1 (2020-10-02)</td>
+      <td>0.8578</td>
+      <td>2020-11-27</td>
+      <td>1 (2020-11-27)</td>
       <td>2</td>
     </tr>
     <tr>
-      <td>FH003MJ</td>
-      <td>229E-1984</td>
+      <td>AUSAB-01</td>
+      <td>229E-2016</td>
       <td>1</td>
       <td>0.001235</td>
-      <td>0.7447</td>
-      <td>2020-10-02</td>
-      <td>1 (2020-10-02)</td>
+      <td>1.2120</td>
+      <td>2020-11-27</td>
+      <td>1 (2020-11-27)</td>
       <td>2</td>
     </tr>
   </tbody>
@@ -203,7 +203,7 @@ if sera_lacking_info:
 display(HTML(serum_info.head().to_html(index=False)))
 ```
 
-    Read information for 47 sera
+    Read information for 78 sera
 
 
 
@@ -387,67 +387,67 @@ fits.fitParams().to_csv(all_fit_params, index=False)
   </thead>
   <tbody>
     <tr>
-      <td>FH003MJ</td>
-      <td>229E-1984</td>
+      <td>AUSAB-01</td>
+      <td>229E-2016</td>
       <td>average</td>
       <td>2</td>
-      <td>0.016790</td>
+      <td>0.029006</td>
       <td>interpolated</td>
-      <td>0.0168</td>
-      <td>0.016790</td>
-      <td>1.635237</td>
+      <td>0.029</td>
+      <td>0.029006</td>
+      <td>1.416834</td>
       <td>1</td>
       <td>0</td>
     </tr>
     <tr>
-      <td>FH004MM</td>
-      <td>229E-1984</td>
+      <td>AUSAB-02</td>
+      <td>229E-2016</td>
       <td>average</td>
       <td>2</td>
-      <td>0.034620</td>
+      <td>0.013032</td>
       <td>interpolated</td>
-      <td>0.0346</td>
-      <td>0.034620</td>
-      <td>0.963866</td>
+      <td>0.013</td>
+      <td>0.013032</td>
+      <td>1.449511</td>
       <td>1</td>
       <td>0</td>
     </tr>
     <tr>
-      <td>FH005DJ</td>
-      <td>229E-1984</td>
+      <td>AUSAB-04</td>
+      <td>229E-2016</td>
       <td>average</td>
       <td>2</td>
-      <td>0.014059</td>
+      <td>0.045668</td>
       <td>interpolated</td>
-      <td>0.0141</td>
-      <td>0.014059</td>
-      <td>1.289468</td>
+      <td>0.0457</td>
+      <td>0.045668</td>
+      <td>1.418362</td>
       <td>1</td>
       <td>0</td>
     </tr>
     <tr>
-      <td>FH006SM</td>
-      <td>229E-1984</td>
+      <td>AUSAB-06</td>
+      <td>229E-2016</td>
       <td>average</td>
       <td>2</td>
-      <td>0.063402</td>
+      <td>0.043231</td>
       <td>interpolated</td>
-      <td>0.0634</td>
-      <td>0.063402</td>
-      <td>1.324233</td>
+      <td>0.0432</td>
+      <td>0.043231</td>
+      <td>1.212101</td>
       <td>1</td>
       <td>0</td>
     </tr>
     <tr>
-      <td>FH007TR</td>
-      <td>229E-1984</td>
+      <td>AUSAB-07</td>
+      <td>229E-2016</td>
       <td>average</td>
       <td>2</td>
-      <td>0.008009</td>
-      <td>interpolated</td>
-      <td>0.00801</td>
-      <td>0.008009</td>
-      <td>1.074526</td>
+      <td>0.100000</td>
+      <td>lower</td>
+      <td>&gt;0.1</td>
+      <td>0.121031</td>
+      <td>1.162661</td>
       <td>1</td>
       <td>0</td>
     </tr>
@@ -495,54 +495,54 @@ neut_titers.to_csv(all_neut_titers, index=False, float_format='%.1f')
   </thead>
   <tbody>
     <tr>
-      <td>FH003MJ</td>
-      <td>229E-1984</td>
-      <td>59.6</td>
+      <td>AUSAB-01</td>
+      <td>229E-2016</td>
+      <td>34.5</td>
       <td>False</td>
-      <td>FH003MJ (1988)</td>
-      <td>1987-11-09</td>
-      <td>1987.9</td>
-      <td>&lt;40</td>
+      <td>AUSAB-01 (2020)</td>
+      <td>2020-01-01</td>
+      <td>2020.0</td>
+      <td>61</td>
     </tr>
     <tr>
-      <td>FH004MM</td>
-      <td>229E-1984</td>
-      <td>28.9</td>
+      <td>AUSAB-02</td>
+      <td>229E-2016</td>
+      <td>76.7</td>
       <td>False</td>
-      <td>FH004MM (1989)</td>
-      <td>1989-06-26</td>
-      <td>1989.5</td>
-      <td>&lt;40</td>
+      <td>AUSAB-02 (2020)</td>
+      <td>2020-01-01</td>
+      <td>2020.0</td>
+      <td>73</td>
     </tr>
     <tr>
-      <td>FH005DJ</td>
-      <td>229E-1984</td>
-      <td>71.1</td>
+      <td>AUSAB-04</td>
+      <td>229E-2016</td>
+      <td>21.9</td>
       <td>False</td>
-      <td>FH005DJ (1987)</td>
-      <td>1986-10-06</td>
-      <td>1986.8</td>
-      <td>66</td>
+      <td>AUSAB-04 (2020)</td>
+      <td>2020-01-01</td>
+      <td>2020.0</td>
+      <td>44</td>
     </tr>
     <tr>
-      <td>FH006SM</td>
-      <td>229E-1984</td>
-      <td>15.8</td>
+      <td>AUSAB-06</td>
+      <td>229E-2016</td>
+      <td>23.1</td>
       <td>False</td>
-      <td>FH006SM (1987)</td>
-      <td>1986-12-20</td>
-      <td>1987.0</td>
-      <td>&lt;40</td>
+      <td>AUSAB-06 (2020)</td>
+      <td>2020-01-01</td>
+      <td>2020.0</td>
+      <td>50</td>
     </tr>
     <tr>
-      <td>FH007TR</td>
-      <td>229E-1984</td>
-      <td>124.9</td>
-      <td>False</td>
-      <td>FH007TR (1990)</td>
-      <td>1989-08-29</td>
-      <td>1989.7</td>
-      <td>28</td>
+      <td>AUSAB-07</td>
+      <td>229E-2016</td>
+      <td>10.0</td>
+      <td>True</td>
+      <td>AUSAB-07 (2020)</td>
+      <td>2020-01-01</td>
+      <td>2020.0</td>
+      <td>44</td>
     </tr>
   </tbody>
 </table>
@@ -818,12 +818,108 @@ _ = p.draw()
 
 
     
+    There are 31 sera with a most recent closest virus of 229E-2016.
+    These sera were collected between 2020 and 2020.
+    8 of the 31 sera have neut titers >90:
+
+
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>serum</th>
+      <th>virus</th>
+      <th>collection_date</th>
+      <th>age</th>
+      <th>neut_titer</th>
+      <th>is_upper_bound</th>
+      <th>sera_range</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>POP_0013</td>
+      <td>229E-2016</td>
+      <td>2020-03-03</td>
+      <td>10 to &lt;15 years</td>
+      <td>3247.3</td>
+      <td>False</td>
+      <td>2020-2020</td>
+    </tr>
+    <tr>
+      <td>POP_0074</td>
+      <td>229E-2016</td>
+      <td>2020-03-06</td>
+      <td>10 to &lt;15 years</td>
+      <td>524.1</td>
+      <td>False</td>
+      <td>2020-2020</td>
+    </tr>
+    <tr>
+      <td>AUSAB-10</td>
+      <td>229E-2016</td>
+      <td>2020-01-01</td>
+      <td>73</td>
+      <td>418.6</td>
+      <td>False</td>
+      <td>2020-2020</td>
+    </tr>
+    <tr>
+      <td>POP_0097</td>
+      <td>229E-2016</td>
+      <td>2020-03-06</td>
+      <td>&gt;15 years</td>
+      <td>229.1</td>
+      <td>False</td>
+      <td>2020-2020</td>
+    </tr>
+    <tr>
+      <td>AUSAB-17</td>
+      <td>229E-2016</td>
+      <td>2020-01-01</td>
+      <td>40</td>
+      <td>183.0</td>
+      <td>False</td>
+      <td>2020-2020</td>
+    </tr>
+    <tr>
+      <td>AUSAB-20</td>
+      <td>229E-2016</td>
+      <td>2020-01-01</td>
+      <td>47</td>
+      <td>155.4</td>
+      <td>False</td>
+      <td>2020-2020</td>
+    </tr>
+    <tr>
+      <td>POP_0030</td>
+      <td>229E-2016</td>
+      <td>2020-03-04</td>
+      <td>5 to &lt;10 years</td>
+      <td>152.2</td>
+      <td>False</td>
+      <td>2020-2020</td>
+    </tr>
+    <tr>
+      <td>AUSAB-12</td>
+      <td>229E-2016</td>
+      <td>2020-01-01</td>
+      <td>38</td>
+      <td>99.3</td>
+      <td>False</td>
+      <td>2020-2020</td>
+    </tr>
+  </tbody>
+</table>
+
+
+    
     Distribution of titers of sera against its most recent closest virus:
 
 
 
     
-![png](analyze_neut_data_files/analyze_neut_data_25_5.png)
+![png](analyze_neut_data_files/analyze_neut_data_25_7.png)
     
 
 
@@ -874,9 +970,13 @@ p = (
 _ = p.draw()
 ```
 
+    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/geoms/geom_path.py:81: PlotnineWarning: geom_path: Each group consist of only one observation. Do you need to adjust the group aesthetic?
+    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/geoms/geom_path.py:81: PlotnineWarning: geom_path: Each group consist of only one observation. Do you need to adjust the group aesthetic?
+
+
 
     
-![png](analyze_neut_data_files/analyze_neut_data_27_0.png)
+![png](analyze_neut_data_files/analyze_neut_data_27_1.png)
     
 
 
