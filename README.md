@@ -92,5 +92,5 @@ This file along with the PDB at [results/pdbs/6u7h.pdb](results/pdbs/6u7h.pdb) a
 ### Design Spikes for experiments
 We design the sequences of the Spikes that will be used for the experiments (they have a C-terminal tail deletion to improve lentiviral pseudotyping).
 This design is done by the Juyter notebook [seqs_for_expts.ipynb](seqs_for_expts.ipynb), and the Markdown output of this notebook is in [results/seqs_for_expts.md](results/seqs_for_expts.md).
-The amino-acid Levenshtein distance (essentially number of differences including gaps) among these sequences is plotted in [results/seqs_for_expts/n_aa_diffs.pdf](results/seqs_for_expts/n_aa_diffs.pdf).
+The amino-acid Levenshtein distance (essentially number of differences including gaps) and amino-acid percent divergence among these sequences is plotted in [results/seqs_for_expts/n_aa_diffs.pdf](results/seqs_for_expts/n_aa_diffs.pdf).
 The protein sequences are in [results/seqs_for_expts/prots.fasta](results/seqs_for_expts/prots.fasta), and Genbank files for each (`*.gp` extension) are in [results/seqs_for_expts/](results/seqs_for_expts).
