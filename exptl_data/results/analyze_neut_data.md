@@ -125,7 +125,7 @@ display(HTML(fracinfect.head().to_html(index=False)))
       <td>0.1709</td>
       <td>2020-11-27</td>
       <td>1 (2020-11-27)</td>
-      <td>2</td>
+      <td>1</td>
     </tr>
     <tr>
       <td>AUSAB-01</td>
@@ -135,7 +135,7 @@ display(HTML(fracinfect.head().to_html(index=False)))
       <td>0.5763</td>
       <td>2020-11-27</td>
       <td>1 (2020-11-27)</td>
-      <td>2</td>
+      <td>1</td>
     </tr>
     <tr>
       <td>AUSAB-01</td>
@@ -145,7 +145,7 @@ display(HTML(fracinfect.head().to_html(index=False)))
       <td>0.9789</td>
       <td>2020-11-27</td>
       <td>1 (2020-11-27)</td>
-      <td>2</td>
+      <td>1</td>
     </tr>
     <tr>
       <td>AUSAB-01</td>
@@ -155,7 +155,7 @@ display(HTML(fracinfect.head().to_html(index=False)))
       <td>0.8578</td>
       <td>2020-11-27</td>
       <td>1 (2020-11-27)</td>
-      <td>2</td>
+      <td>1</td>
     </tr>
     <tr>
       <td>AUSAB-01</td>
@@ -165,7 +165,7 @@ display(HTML(fracinfect.head().to_html(index=False)))
       <td>1.2120</td>
       <td>2020-11-27</td>
       <td>1 (2020-11-27)</td>
-      <td>2</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
@@ -820,7 +820,7 @@ _ = p.draw()
     
     There are 31 sera with a most recent closest virus of 229E-2016.
     These sera were collected between 2020 and 2020.
-    8 of the 31 sera have neut titers >90:
+    7 of the 31 sera have neut titers >90:
 
 
 
@@ -842,7 +842,7 @@ _ = p.draw()
       <td>229E-2016</td>
       <td>2020-03-03</td>
       <td>10 to &lt;15 years</td>
-      <td>3247.3</td>
+      <td>3432.6</td>
       <td>False</td>
       <td>2020-2020</td>
     </tr>
@@ -851,7 +851,7 @@ _ = p.draw()
       <td>229E-2016</td>
       <td>2020-03-06</td>
       <td>10 to &lt;15 years</td>
-      <td>524.1</td>
+      <td>399.8</td>
       <td>False</td>
       <td>2020-2020</td>
     </tr>
@@ -860,7 +860,7 @@ _ = p.draw()
       <td>229E-2016</td>
       <td>2020-01-01</td>
       <td>73</td>
-      <td>418.6</td>
+      <td>289.3</td>
       <td>False</td>
       <td>2020-2020</td>
     </tr>
@@ -869,7 +869,7 @@ _ = p.draw()
       <td>229E-2016</td>
       <td>2020-03-06</td>
       <td>&gt;15 years</td>
-      <td>229.1</td>
+      <td>209.3</td>
       <td>False</td>
       <td>2020-2020</td>
     </tr>
@@ -878,7 +878,7 @@ _ = p.draw()
       <td>229E-2016</td>
       <td>2020-01-01</td>
       <td>40</td>
-      <td>183.0</td>
+      <td>162.8</td>
       <td>False</td>
       <td>2020-2020</td>
     </tr>
@@ -887,7 +887,7 @@ _ = p.draw()
       <td>229E-2016</td>
       <td>2020-01-01</td>
       <td>47</td>
-      <td>155.4</td>
+      <td>121.2</td>
       <td>False</td>
       <td>2020-2020</td>
     </tr>
@@ -896,16 +896,7 @@ _ = p.draw()
       <td>229E-2016</td>
       <td>2020-03-04</td>
       <td>5 to &lt;10 years</td>
-      <td>152.2</td>
-      <td>False</td>
-      <td>2020-2020</td>
-    </tr>
-    <tr>
-      <td>AUSAB-12</td>
-      <td>229E-2016</td>
-      <td>2020-01-01</td>
-      <td>38</td>
-      <td>99.3</td>
+      <td>113.8</td>
       <td>False</td>
       <td>2020-2020</td>
     </tr>
@@ -970,13 +961,9 @@ p = (
 _ = p.draw()
 ```
 
-    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/geoms/geom_path.py:81: PlotnineWarning: geom_path: Each group consist of only one observation. Do you need to adjust the group aesthetic?
-    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/geoms/geom_path.py:81: PlotnineWarning: geom_path: Each group consist of only one observation. Do you need to adjust the group aesthetic?
-
-
 
     
-![png](analyze_neut_data_files/analyze_neut_data_27_1.png)
+![png](analyze_neut_data_files/analyze_neut_data_27_0.png)
     
 
 
