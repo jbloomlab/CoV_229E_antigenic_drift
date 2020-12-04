@@ -24,6 +24,7 @@ dependencies:
   - rpy2
   - treetime
   - snakemake
+  - svgutils
   - pyyaml
   - pip:
     - dna-features-viewer
