@@ -10,8 +10,9 @@ import itertools
 import math
 import re
 import warnings
+import xml.etree.ElementTree as ElementTree
 
-from IPython.display import display, HTML
+from IPython.display import display, HTML, SVG
 
 import matplotlib.pyplot as plt
 
@@ -22,6 +23,8 @@ from neutcurve.colorschemes import CBMARKERS
 import pandas as pd
 
 from plotnine import *
+
+import svgutils.compose
 
 print(f"Using `neutcurve` version {neutcurve.__version__}")
 ```
@@ -636,20 +639,51 @@ for closest_virus_year, df in annotated_neut_titers.groupby('closest_virus_year'
                  ))
     
 print('\nDistribution of titers of sera against its most recent closest virus:')
-p = (ggplot(closest_virus_df.assign(above_cutoff=lambda x: x['neut_titer'] > titer_cutoff)) +
-     aes('sera_range', 'neut_titer', color='virus', shape='above_cutoff') +
-     geom_jitter(height=0, width=0.2, size=2,
-                 alpha=0.6, random_state=1) +
+def sera_range_to_xlabel(sera_range):
+    start, end = sera_range.split('-')
+    if start == end:
+        return start
+    else:
+        return f"{start}-{end[-2:]}"
+df_to_plot = (
+    closest_virus_df
+    .assign(above_cutoff=lambda x: x['neut_titer'] > titer_cutoff,
+            xlabel=lambda x: x['sera_range'].map(sera_range_to_xlabel) +
+                             ' sera\nvs ' + x['virus'],
+            )
+    .rename(columns={'above_cutoff': 'above cutoff'})
+    )
+
+p = (ggplot(df_to_plot) +
+     aes('xlabel', 'neut_titer', color='above cutoff', shape='above cutoff') +
+     geom_jitter(height=0, width=0.2, size=2.5,
+                 alpha=0.5, random_state=1) +
      theme_classic() +
-     theme(figure_size=(1.3 * closest_virus_df['virus'].nunique(), 2.5),
+     theme(figure_size=(1.5 * closest_virus_df['virus'].nunique(), 3),
+           axis_text_x=element_text(angle=90, size=9),
+           axis_title_y=element_text(size=10)
            ) +
-     scale_y_log10(name='neutralization titer') +
-     scale_color_manual(values=CBPALETTE[1:]) +
-     xlab('sera isolation date') +
-     geom_hline(yintercept=titer_lower_bound, linetype='dotted', color=CBPALETTE[0]) +
-     geom_hline(yintercept=titer_cutoff, linetype='dashed', color=CBPALETTE[0])
+     scale_color_manual(values=CBPALETTE) +
+     xlab('') +
+     geom_hline(yintercept=titer_lower_bound, linetype='dotted', color=CBPALETTE[0], size=0.75, alpha=0.5) +
+     geom_hline(yintercept=titer_cutoff, linetype='dashed', color=CBPALETTE[2], size=0.75, alpha=0.5) +
+     geom_text(data=df_to_plot.groupby('xlabel', as_index=False)
+                              .aggregate(ntot=pd.NamedAgg('serum', 'nunique'),
+                                         n_above=pd.NamedAgg('above cutoff', 'sum')
+                                         )
+                              .assign(label=lambda x: x['n_above'].astype(str) + ' / ' + x['ntot'].astype(str)),
+               mapping=aes(x='xlabel', label='label'),
+               inherit_aes=False,
+               y=1.05 * math.log10(df_to_plot['neut_titer'].max()),
+               color='black',
+               size=9,
+               ) +
+     scale_y_log10(name='neutralization titer (reciprocal IC50)', expand=(0.05, 0, 0.12, 0))
      )
 _ = p.draw()
+svg = 'results/all_neut_titers.svg'
+print(f"Saving plot to {svg}")
+p.save(svg, verbose=False)
 ```
 
     
@@ -906,6 +940,7 @@ _ = p.draw()
 
     
     Distribution of titers of sera against its most recent closest virus:
+    Saving plot to results/all_neut_titers.svg
 
 
 
@@ -917,53 +952,385 @@ _ = p.draw()
 Now plot neutralization titers as a function of virus isolation date for all viruses that were above the cutoff for their "closest" virus.
 We do this both for the virus with full spikes and just the RBD chimeras.
 Note that we "duplicate" the 1984 virus be both a full spike and RBD chimera for this plot, as the 1984 virus is really the chimera of the 1984 RBD in the 1984 virus.
+We also shade by the date range the patient was alive.
+The upper bound of this date range is just the collection date, but the lower bound must be computed for age.
+When ages are just ranges, we take the middle of the range, and for plotting purposes we arbitrarily assume unknown age individuals are 40 (this doesn't have much effect as all of these individuals had sera collected quite close to earliest date plotted, so we are really just assuming they are not young children):
 
 
 ```python
-df = (annotated_neut_titers
+# map age strings to numbers used for plotting rectangles showing life span,
+# and text labels for facet titles
+class dict_missing_as_key(dict):
+    # https://stackoverflow.com/a/6229253
+    def __missing__(self, key):
+        return key
+age_str_to_number = dict_missing_as_key({'unknown': 40,
+                                         '5 to <10 years': 7,
+                                         '10 to <15 years': 12,
+                                         '>15 years': 16.5,
+                                          })
+neut_history_df = (
+      annotated_neut_titers
       .merge(closest_virus_df[['serum', 'closest_virus', 'sera_range', 'titer_to_closest_virus']],
-             on='serum')
+             on=['serum', 'closest_virus'])
       .query('titer_to_closest_virus > @titer_cutoff')
+      .assign(age_number=lambda x: x['age'].map(age_str_to_number).astype(int),
+              birth_date=lambda x: x['collection_year'] - x['age_number'],
+              )
       )
-df = df.append(df.query('virus == "229E-1984"').assign(rbd_chimera=True))
+neut_history_df = neut_history_df.append(neut_history_df.query('virus == "229E-1984"')
+                                         .assign(rbd_chimera=True)
+                                         )
+assert all(neut_history_df['birth_date'] < neut_history_df['collection_year'])
 
-ncol = 4
-nfacets = df['serum_year'].nunique()
-nrow = math.ceil(nfacets / ncol)
+# now set x min and max (year range showed), and set geom_rect values for these for each sera
+xmin = neut_history_df['virus_year'].min() - 2
+xmax = max(neut_history_df['virus_year'].max() + 2, neut_history_df['collection_year'].max())
+neut_history_df = neut_history_df.assign(year_min=lambda x: x['birth_date'].clip(lower=xmin),
+                                         year_max=lambda x: x['collection_year'].clip(upper=xmax),
+                                         )
 
-p = (
-    ggplot(df) +
-    aes(x='virus_year', y='neut_titer', color='rbd_chimera',
-        shape='rbd_chimera', linetype='rbd_chimera') +
-    geom_point(alpha=0.8) +
-    geom_line(alpha=0.8) +
-    facet_wrap('~ serum_year',
-               ncol=ncol,
-               nrow=nrow) +
-    scale_y_log10(name='neutralization titer (reciprocal IC50)',
-                  expand=(0.08, 0),
-                  ) +
-    scale_x_continuous(name='year of virus isolation',
-                      breaks=df['virus_year'].sort_values().unique(),
+# now set serum labels facet titles, then order by isolation year followed by patient age
+class dict_missing_as_age_key(dict):
+    # https://stackoverflow.com/a/6229253
+    def __missing__(self, key):
+        return str(key) + 'yr'
+age_str_to_label = dict_missing_as_age_key({'unknown': 'adult',
+                                            '5 to <10 years': '5-9yr',
+                                            '10 to <15 years': '10-14yr',
+                                            '>15 years': '15-18yr',
+                                            })
+neut_history_df = (neut_history_df
+                   .assign(collection_year_round=lambda x: x['collection_year'].round().astype(int),
+                           serum_label=lambda x: x['collection_year_round'].astype(str) +
+                                                 ', ' + x['age'].map(age_str_to_label) +
+                                                 ' (' + x['serum'] + ')'
+                           )
+                   .sort_values(['collection_year_round', 'age_number'])
+                   .assign(serum_label=lambda x: pd.Categorical(x['serum_label'],
+                                                                x['serum_label'].unique(),
+                                                                ordered=True)
+                           )
+                   )
+
+# nice name for `rbd_chimera` label
+neut_history_df['rbd_chimera_label'] = pd.Categorical(
+                                        neut_history_df['rbd_chimera'].map({True: 'RBD chimera',
+                                                                            False: 'full spike'}),
+                                        ['full spike', 'RBD chimera'], ordered=True)
+
+# now define function that draws plots
+def plot_neut_histories(df, ncol=4, linevar=None):
+    nfacets = df['serum_label'].nunique()
+    nrow = math.ceil(nfacets / ncol)
+    groupvars = ['virus_year', 'serum_label']
+    if linevar is not None:
+        aes_kwargs = {'shape': linevar, 'linetype': linevar, 'color': linevar}
+        groupvars.append(linevar)
+        linealpha = 0.65
+    else:
+        aes_kwargs = {}
+        linealpha = 1
+    assert len(df) == len(df.groupby(groupvars))
+    p = (
+        ggplot(df) +
+        aes(x='virus_year', y='neut_titer', **aes_kwargs) +
+        geom_point(alpha=linealpha, size=2) +
+        geom_line(alpha=linealpha) +
+        facet_wrap('~ serum_label',
+                   ncol=ncol,
+                   nrow=nrow) +
+        scale_y_log10(name='neutralization titer (reciprocal IC50)',
                       expand=(0.08, 0),
                       ) +
-    theme_classic() +
-    geom_rect(data=df[['serum_year', 'collection_year']].drop_duplicates(),
-              mapping=aes(xmax='collection_year'),
-              inherit_aes=False,
-              xmin=0, ymin=0, ymax=100, fill=CBPALETTE[-1], alpha=0.1) +
-    scale_color_manual(values=CBPALETTE[1:]) +
-    theme(axis_text_x=element_text(angle=90),
-          figure_size=(2 * ncol, 1.5 * nrow)) +
-    geom_hline(yintercept=titer_lower_bound, linetype='dotted', color=CBPALETTE[0], size=0.75)
-    )
+        scale_x_continuous(name='year of virus isolation',
+                          breaks=df['virus_year'].sort_values().unique(),
+                          expand=(0, 0),
+                          limits=(xmin, xmax),
+                          ) +
+        theme_classic() +
+        geom_rect(data=df[['serum_label', 'year_min', 'year_max']].drop_duplicates(),
+                  mapping=aes(xmin='year_min', xmax='year_max'),
+                  inherit_aes=False,
+                  ymin=0, ymax=100, fill=CBPALETTE[2], alpha=0.15) +
+        scale_color_manual(values=['black'] + [c for c in CBPALETTE[1:] if c not in {CBPALETTE[2]}]) +
+        theme(axis_text_x=element_text(angle=90),
+              figure_size=(2.25 * ncol, 1.65 * nrow),
+              legend_title=element_blank(),
+              ) +
+        geom_hline(yintercept=titer_lower_bound, linetype='dotted', color=CBPALETTE[0], size=0.75)
+        )
+    return p
+                   
+# make plot for all sera including RBD chimera measurements
+print('\nAll sera including RBD chimera viruses:')
+p = plot_neut_histories(neut_history_df, linevar='rbd_chimera_label')
+fig = p.draw()
+display(fig)
+plt.close(fig)
 
-_ = p.draw()
+# plots for sera closest to 1984 and 1992 viruses (only full spike viruses)
+for year, ncol in [(1984, 4),
+                   (1992, 3),
+                   (2016, 4),
+                   ]:
+    svg = f"results/sera_{year}.svg"
+    print(f"\nSera with closest recent virus from {year}, full spike viruses only, saving to {svg}:")
+    p = plot_neut_histories(neut_history_df.query('closest_virus_year == @year')
+                                           .query('rbd_chimera == False'),
+                            ncol=ncol,
+                            )
+    p.save(svg, verbose=False)
+    fig = p.draw()
+    display(fig)
+    plt.close(fig)
+    
+# make plot for RBD chimeras for sera closest to 1984 virus
+svg = 'results/sera_1984_rbd_chimera.svg'
+print(f"\nSera with closest recent virus from 1984 including RBD chimeras, saving to {svg}:")
+p = plot_neut_histories(neut_history_df.query('closest_virus_year == 1984'),
+                        linevar='rbd_chimera_label')
+p.save(svg, verbose=False)
+fig = p.draw()
+display(fig)
+plt.close(fig)
 ```
+
+    
+    All sera including RBD chimera viruses:
+
+
+    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/scales/scale_shape.py:79: PlotnineWarning: Using shapes for an ordinal variable is not advised.
+    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/scales/scale_linetype.py:46: PlotnineWarning: Using linetype for an ordinal variable is not advised.
+
 
 
     
-![png](analyze_neut_data_files/analyze_neut_data_27_0.png)
+![png](analyze_neut_data_files/analyze_neut_data_27_2.png)
+    
+
+
+    
+    Sera with closest recent virus from 1984, full spike viruses only, saving to results/sera_1984.svg:
+
+
+    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/guides/guides.py:197: PlotnineWarning: Cannot generate legend for the 'color' aesthetic. Make sure you have mapped a variable to it
+    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/guides/guides.py:197: PlotnineWarning: Cannot generate legend for the 'color' aesthetic. Make sure you have mapped a variable to it
+
+
+
+    
+![png](analyze_neut_data_files/analyze_neut_data_27_5.png)
+    
+
+
+    
+    Sera with closest recent virus from 1992, full spike viruses only, saving to results/sera_1992.svg:
+
+
+    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/guides/guides.py:197: PlotnineWarning: Cannot generate legend for the 'color' aesthetic. Make sure you have mapped a variable to it
+    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/guides/guides.py:197: PlotnineWarning: Cannot generate legend for the 'color' aesthetic. Make sure you have mapped a variable to it
+
+
+
+    
+![png](analyze_neut_data_files/analyze_neut_data_27_8.png)
+    
+
+
+    
+    Sera with closest recent virus from 2016, full spike viruses only, saving to results/sera_2016.svg:
+
+
+    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/guides/guides.py:197: PlotnineWarning: Cannot generate legend for the 'color' aesthetic. Make sure you have mapped a variable to it
+    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/guides/guides.py:197: PlotnineWarning: Cannot generate legend for the 'color' aesthetic. Make sure you have mapped a variable to it
+
+
+
+    
+![png](analyze_neut_data_files/analyze_neut_data_27_11.png)
+    
+
+
+    
+    Sera with closest recent virus from 1984 including RBD chimeras, saving to results/sera_1984_rbd_chimera.svg:
+
+
+    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/scales/scale_shape.py:79: PlotnineWarning: Using shapes for an ordinal variable is not advised.
+    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/scales/scale_linetype.py:46: PlotnineWarning: Using linetype for an ordinal variable is not advised.
+    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/scales/scale_shape.py:79: PlotnineWarning: Using shapes for an ordinal variable is not advised.
+    /fh/fast/bloom_j/software/miniconda3/envs/CoV_229E_antigenic_drift/lib/python3.8/site-packages/plotnine/scales/scale_linetype.py:46: PlotnineWarning: Using linetype for an ordinal variable is not advised.
+
+
+
+    
+![png](analyze_neut_data_files/analyze_neut_data_27_14.png)
+    
+
+
+Now plot the fold change in the neutralization titer for the next two viruses for each sera:
+
+
+```python
+virus_years = sorted(neut_history_df['virus_year'].unique())
+
+n_ahead_set = [1, 2]  # look at viruses this far ahead of initial
+
+n_ahead_labels = {1: '8-9 yrs',
+                  2: '16-17 yrs'}
+
+next_virus_df = (
+    neut_history_df
+    .query('not rbd_chimera')
+    [['serum', 'closest_virus_year', 'virus_year', 'titer_to_closest_virus',
+      'neut_titer', 'is_upper_bound']]
+    .assign(n_ahead=lambda x: x.apply(lambda r: virus_years.index(r['virus_year']) -
+                                                virus_years.index(r['closest_virus_year']),
+                                      axis=1),
+            n_ahead_label=lambda x: pd.Categorical(x['n_ahead'].map(n_ahead_labels),
+                                                   n_ahead_labels.values(), ordered=True),
+            fold_change=lambda x: x['neut_titer'] / x['titer_to_closest_virus'],
+            log2_fold_change=lambda x: x['fold_change'].apply(lambda t: math.log(t, 2)),
+            upper_bound=lambda x: x['is_upper_bound'].map({False: 'exact',
+                                                           True: 'upper bound'}),
+            )
+    .query('n_ahead in @n_ahead_set')
+    )
+
+print(f"Summary statistics on fold changes in neutralization titer:")
+display(HTML(next_virus_df
+             .groupby('n_ahead_label')
+             .aggregate(n_sera=pd.NamedAgg('fold_change', 'count'),
+                        median_fold_change=pd.NamedAgg('fold_change', 'median'),
+                        geometric_mean_fold_change=pd.NamedAgg('fold_change',
+                                                               lambda s: s.product()**(1 / len(s)))
+                        )
+             .to_html(float_format='%.2g')
+             ))
+
+p = (ggplot(next_virus_df) +
+     aes('n_ahead_label', 'fold_change') +
+     geom_boxplot(width=0.6, outlier_shape=None, outlier_alpha=0, fill='gainsboro') +
+     geom_jitter(aes(shape='upper_bound'),
+                 alpha=0.5, random_state=4, height=0, width=0.25, size=1.75) +
+     theme_classic() +
+     theme(figure_size=(1.1 * len(n_ahead_set), 2.8),
+           axis_text_x=element_text(size=10),
+           axis_title_y=element_text(size=10),
+           legend_title=element_blank(),
+           legend_position='top',
+           ) +
+     scale_y_log10(name='fold change neutralization titer',
+                   breaks=[2, 1, 2**-1, 2**-2, 2**-3, 2**-4, 2**-5, 2**-6],
+                   labels=['2', '1', '1/2', '1/4', '1/8', '1/16', '1/32', '1/64']) +
+     xlab('years in future')
+     )
+
+svg_file = 'results/foldchange.svg'
+print(f"\nPlotting fold changes and saving to {svg_file}")
+_ = p.draw()
+p.save(svg_file, verbose=False)
+```
+
+    Summary statistics on fold changes in neutralization titer:
+
+
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>n_sera</th>
+      <th>median_fold_change</th>
+      <th>geometric_mean_fold_change</th>
+    </tr>
+    <tr>
+      <th>n_ahead_label</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>8-9 yrs</th>
+      <td>13</td>
+      <td>0.26</td>
+      <td>0.21</td>
+    </tr>
+    <tr>
+      <th>16-17 yrs</th>
+      <td>13</td>
+      <td>0.17</td>
+      <td>0.19</td>
+    </tr>
+  </tbody>
+</table>
+
+
+    
+    Plotting fold changes and saving to results/foldchange.svg
+
+
+
+    
+![png](analyze_neut_data_files/analyze_neut_data_29_3.png)
+    
+
+
+Use [svgutils](https://svgutils.readthedocs.io/) to assemble a plot with the neutralization histories and fold changes, using [imagesize](https://github.com/shibukawa/imagesize_py) to get the SVG sizes:
+
+
+```python
+neut_history_fig_svg = 'results/neut_history_fig.svg'
+print(f"Creating neutralization history SVG as {neut_history_fig_svg}")
+
+def svg_dim(svgfile, dim):
+    """Get width or height `dim` of `svgfile` in points."""
+    return float(ElementTree.parse(svgfile)
+                            .getroot().attrib[dim]
+                            .replace('px', '')
+                            .replace('pt', '')
+                            )
+
+top_padding = 10
+vert_padding = 20
+horiz_padding = 25
+
+svgutils.compose.Figure(
+    max([svg_dim('results/sera_1984.svg', 'width'),
+         svg_dim('results/sera_1992.svg', 'width') + horiz_padding +
+         svg_dim('results/foldchange.svg', 'width'),
+         ]
+        ),
+    (svg_dim('results/sera_1984.svg', 'height') + 
+     svg_dim('results/sera_1992.svg', 'height') +
+     top_padding + vert_padding),
+    svgutils.compose.Panel(
+        svgutils.compose.SVG('results/sera_1984.svg'),
+        svgutils.compose.Text('A', 2, 5, size=18, font='Arial'),
+        ).move(0, top_padding),
+    svgutils.compose.Panel(
+        svgutils.compose.SVG('results/sera_1992.svg'),
+        svgutils.compose.Text('B', 2, 5, size=18, font='Arial'),
+        ).move(0, svg_dim('results/sera_1984.svg', 'height') + top_padding + vert_padding),
+    svgutils.compose.Panel(
+        # this panel manually shifted 20 units up due to extra padding on box plot
+        svgutils.compose.SVG('results/foldchange.svg'),
+        svgutils.compose.Text('C', 2, 25, size=18, font='Arial'),
+        ).move(svg_dim('results/sera_1992.svg', 'width') + horiz_padding,
+               svg_dim('results/sera_1984.svg', 'height') + top_padding + vert_padding - 20)
+    ).save(neut_history_fig_svg)
+
+display(SVG(neut_history_fig_svg))
+```
+
+    Creating neutralization history SVG as results/neut_history_fig.svg
+
+
+
+    
+![svg](analyze_neut_data_files/analyze_neut_data_31_1.svg)
     
 
 
