@@ -327,7 +327,7 @@ Make a plot showing all viruses against each sera:
 
 ```python
 fig, _ = fits.plotSera(xlabel='serum dilution',
-                       ncol=6,
+                       ncol=7,
                        legendtitle='virus',
                        viruses=fracinfect['virus'].sort_values().unique(),
                        sera=serum_info['serum'],
@@ -338,8 +338,8 @@ fig, _ = fits.plotSera(xlabel='serum dilution',
                        )
 
 print(f"Saving plot to {all_neut_by_sera_curves}\n")
-fig.savefig(all_neut_by_sera_curves)
 fig.tight_layout()
+fig.savefig(all_neut_by_sera_curves)
 display(fig)
 plt.close(fig)
 ```
