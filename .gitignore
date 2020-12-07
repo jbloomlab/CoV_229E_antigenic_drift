@@ -41,7 +41,8 @@ results/variation_analysis/*
 
 !results/pdbs
 
-!results/seqs_for_expts
+!results/seqs_for_expts.md
+!results/seqs_for_expts_files
 results/seqs_for_expts/*
 !results/seqs_for_expts/n_aa_diffs.pdf
 !results/seqs_for_expts/prots.fasta
