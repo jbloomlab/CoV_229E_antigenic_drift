@@ -339,7 +339,7 @@ fig, _ = fits.plotSera(xlabel='serum dilution',
 
 print(f"Saving plot to {all_neut_by_sera_curves}\n")
 fig.tight_layout()
-fig.savefig(all_neut_by_sera_curves)
+fig.savefig(all_neut_by_sera_curves, bbox_inches='tight')
 display(fig)
 plt.close(fig)
 ```
@@ -629,10 +629,12 @@ for closest_virus_year, df in annotated_neut_titers.groupby('closest_virus_year'
     closest_virus_df = closest_virus_df.append(df_closest)
     
     above_cutoff = df_closest.query('neut_titer > @titer_cutoff')
+    n_at_low_lim = len(df_closest.query('neut_titer == @titer_lower_bound'))
     
     print(f"\nThere are {len(df_closest)} sera with a most recent closest virus of {closest_virus}.\n"
           f"These sera were collected between {earliest_sera} and {latest_sera}.\n"
-          f"{len(above_cutoff)} of the {len(df_closest)} sera have neut titers >{titer_cutoff}:")
+          f"{n_at_low_lim} have no detectable titers (<= lower bound).\n"
+          f"These {len(above_cutoff)} of {len(df_closest)} sera have neut titers >{titer_cutoff}:")
     display(HTML(above_cutoff
                  .drop(columns=['closest_virus', 'titer_to_closest_virus'])
                  .to_html(index=False, float_format='%.1f')
@@ -689,7 +691,8 @@ p.save(svg, verbose=False)
     
     There are 27 sera with a most recent closest virus of 229E-1984.
     These sera were collected between 1985 and 1990.
-    8 of the 27 sera have neut titers >90:
+    2 have no detectable titers (<= lower bound).
+    These 8 of 27 sera have neut titers >90:
 
 
 
@@ -785,7 +788,8 @@ p.save(svg, verbose=False)
     
     There are 19 sera with a most recent closest virus of 229E-1992.
     These sera were collected between 1992 and 1995.
-    5 of the 19 sera have neut titers >90:
+    1 have no detectable titers (<= lower bound).
+    These 5 of 19 sera have neut titers >90:
 
 
 
@@ -854,7 +858,8 @@ p.save(svg, verbose=False)
     
     There are 31 sera with a most recent closest virus of 229E-2016.
     These sera were collected between 2020 and 2020.
-    7 of the 31 sera have neut titers >90:
+    6 have no detectable titers (<= lower bound).
+    These 7 of 31 sera have neut titers >90:
 
 
 
