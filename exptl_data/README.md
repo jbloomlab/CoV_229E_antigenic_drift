@@ -1,5 +1,9 @@
-# Analysis of 229E neutralization assay data
+# Analysis of titer neutralization assay data
+This subdirectory contains data and analysis relevant to the experiments.
 
+The maps of the spike-expressing plasmids are in [./plasmid_maps/](plasmid_maps).
+
+There is also code that analyzes and fits the neutralization data.
 Each neutralization assay should have its data stored in an Excel file in a subdirectory named with the data in the format `2020-10-02`.
 The subdirectories should also contain a `sample_map.csv` file that maps the Excel file data to the samples in a format that is readable by the Python script [excel_to_fractinfect.py](excel_to_fractinfect.py) (see [here](https://github.com/jbloomlab/exceltofractinfect) for more on this script, which was written by Kate Crawford).
 The plate layouts referred to by the sample maps are in [./PlateLayouts/](PlateLayouts).
