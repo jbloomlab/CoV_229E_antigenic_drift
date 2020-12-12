@@ -1283,7 +1283,7 @@ p.save(svg_file, verbose=False)
     
 
 
-Use [svgutils](https://svgutils.readthedocs.io/) to assemble a plot with the neutralization histories and fold changes, using [imagesize](https://github.com/shibukawa/imagesize_py) to get the SVG sizes:
+Use [svgutils](https://svgutils.readthedocs.io/) to assemble a plot with the neutralization histories and fold changes:
 
 
 ```python

@@ -43,6 +43,31 @@ def get_single_file_in_subdir(subdir, ending):
 
 # Rules -----------------------------------------------------------------------
 
+rule all:
+    input:
+        'results/all_neut_replicates.pdf',
+        'results/all_neut_by_sera.pdf',
+        'results/all_fit_params.csv',
+        'results/all_neut_titers.csv',
+        'results/all_neut_titers.svg',
+        'results/sera_1984_rbd_chimera.svg',
+        'results/sera_2016.svg',
+        'results/neut_history_fig.svg',
+        'results/analyze_neut_data.md',
+        'results/plot_titers.md',
+        'results/viral_titers_fig.svg',
+
+
+rule plot_titers:
+    input:
+        'viral_titers.csv',
+    output:
+        'results/plot_titers.md',
+        'results/viral_titers_fig.svg',
+    run:
+        run_nb_to_md('plot_titers.ipynb')
+
+
 rule analyze_neut_curves:
     input:
         fracinfect='results/fracinfect.csv',
@@ -52,6 +77,10 @@ rule analyze_neut_curves:
         'results/all_neut_by_sera.pdf',
         'results/all_fit_params.csv',
         'results/all_neut_titers.csv',
+        'results/all_neut_titers.svg',
+        'results/sera_1984_rbd_chimera.svg',
+        'results/sera_2016.svg',
+        'results/neut_history_fig.svg',
         'results/analyze_neut_data.md',
     run:
         run_nb_to_md('analyze_neut_data.ipynb')

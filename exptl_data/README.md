@@ -22,3 +22,5 @@ Then run [Snakefile](Snakefile) with the command:
     snakemake -j 1
 
 The results of the analysis are in the Jupyter notebook [analyze_neut_data.ipynb](analyze_neut_data.ipynb) and its Markdown rendering at [results/analyze_neut_data.md](results/analyze_neut_data.md).
+
+We also plot the viral titers in [viral_titers.csv](viral_titers.csv) using the notebook [plot_titers.ipynb](plot_titers.ipynb), which is rendered in Markdown at [results/plot_titers.md](results/plot_titers.md)

@@ -1,0 +1,22 @@
+name,comparison,titer,replicate
+1984,virus,44010587,1
+1992,virus,36741747,1
+2001,virus,32520613,1
+2008,virus,15210040,1
+2016,virus,37211680,1
+RBD-chimera-1992,virus,8596787,1
+RBD-chimera-2001,virus,30181467,1
+RBD-chimera-2008,virus,28075707,1
+RBD-chimera-2016,virus,25684733,1
+APN only,cells,0.105,1
+APN only,cells,0.096,2
+TMPRSS2 only,cells,0.0002,1
+TMPRSS2 only,cells,0.00001,2
+APN + TMPRSS2,cells,1,1
+APN + TMPRSS2,cells,1,2
+full tail,ZsGreen_titer,4e3,1
+full tail,ZsGreen_titer,1.7e3,2
+tail deletion,ZsGreen_titer,1.1e4,1
+tail deletion,ZsGreen_titer,1e4,2
+no spike,ZsGreen_titer,0,1
+no spike,ZsGreen_titer,0,2
