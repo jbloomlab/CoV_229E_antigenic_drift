@@ -128,7 +128,7 @@ display(HTML(fracinfect.head().to_html(index=False)))
       <td>0.1709</td>
       <td>2020-11-27</td>
       <td>1 (2020-11-27)</td>
-      <td>1</td>
+      <td>2</td>
     </tr>
     <tr>
       <td>AUSAB-01</td>
@@ -138,7 +138,7 @@ display(HTML(fracinfect.head().to_html(index=False)))
       <td>0.5763</td>
       <td>2020-11-27</td>
       <td>1 (2020-11-27)</td>
-      <td>1</td>
+      <td>2</td>
     </tr>
     <tr>
       <td>AUSAB-01</td>
@@ -148,7 +148,7 @@ display(HTML(fracinfect.head().to_html(index=False)))
       <td>0.9789</td>
       <td>2020-11-27</td>
       <td>1 (2020-11-27)</td>
-      <td>1</td>
+      <td>2</td>
     </tr>
     <tr>
       <td>AUSAB-01</td>
@@ -158,7 +158,7 @@ display(HTML(fracinfect.head().to_html(index=False)))
       <td>0.8578</td>
       <td>2020-11-27</td>
       <td>1 (2020-11-27)</td>
-      <td>1</td>
+      <td>2</td>
     </tr>
     <tr>
       <td>AUSAB-01</td>
@@ -168,7 +168,7 @@ display(HTML(fracinfect.head().to_html(index=False)))
       <td>1.2120</td>
       <td>2020-11-27</td>
       <td>1 (2020-11-27)</td>
-      <td>1</td>
+      <td>2</td>
     </tr>
   </tbody>
 </table>
