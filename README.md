@@ -1,5 +1,7 @@
 # Antigenic drift of the human seasonal coronavirus 229E
 
+This is the analysis for the paper [A human coronavirus evolves antigenically to escape antibody immunity](https://www.biorxiv.org/content/10.1101/2020.12.17.423313v1).
+
 Study by Rachel Eguia, Katharine Crawford, Laurel Kelnhofer-Millevolte, and Jesse Bloom
 
 The analysis is divided into some manual steps that provide the input data, followed by an automated computational analysis to prodcue the rest of the results from input data.
